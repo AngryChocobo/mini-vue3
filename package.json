@@ -1,0 +1,23 @@
+{
+  "name": "mini-vue3",
+  "description": "吼，又一个mini-vue项目我的老伙计",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngryChocobo/mini-vue3.git"
+  },
+  "keywords": [],
+  "author": "AngryChocobo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AngryChocobo/mini-vue3/issues"
+  },
+  "homepage": "https://github.com/AngryChocobo/mini-vue3#readme",
+  "devDependencies": {
+    "vitest": "^0.12.9"
+  }
+}

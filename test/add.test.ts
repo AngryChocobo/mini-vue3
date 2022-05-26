@@ -1,4 +1,3 @@
-import { assert, expect, test } from "vitest";
 import { add } from "../src/main";
 
 test("add", () => {

@@ -1,34 +1,28 @@
 const bucket = new Map();
 let activeEffect;
 
-export function reactive(raw) {
-  const reactiveObj = new Proxy(raw, {
-    get(target, key) {
-      track(target, key);
-      return target[key];
-    },
-    set(target, key, value) {
-      target[key] = value;
-      trigger(target, key);
-      return true;
-    },
-  });
-  return reactiveObj;
+class ReactiveEffect {
+  constructor(private fn) {
+    //
+  }
+  run() {
+    this.fn();
+  }
 }
-
 export function effect(fn) {
   activeEffect = fn;
-  fn();
+  const _effect = new ReactiveEffect(fn);
+  _effect.run();
 }
 
-function trigger(obj: any, key: string | symbol) {
+export function trigger(obj: any, key: string | symbol) {
   let depMap = bucket.get(obj);
   if (!depMap) return;
   const deps = depMap.get(key);
   if (!deps) return;
   deps.forEach((dep) => dep());
 }
-function track(obj: any, key: string | symbol) {
+export function track(obj: any, key: string | symbol) {
   let depMap = bucket.get(obj);
   if (!depMap) {
     bucket.set(obj, (depMap = new Map()));

@@ -1,4 +1,5 @@
-import { reactive, effect } from "../effect";
+import { effect } from "../effect";
+import { reactive } from "../reactive";
 
 describe("effect", () => {
   test("happy ", () => {

@@ -14,3 +14,14 @@ export function reactive(raw) {
   });
   return reactiveObj;
 }
+
+export function readonly(raw) {
+  return new Proxy(raw, {
+    get(target, key) {
+      return target[key];
+    },
+    set(target, key) {
+      return target[key];
+    },
+  });
+}

@@ -16,10 +16,10 @@ export function effect(fn, options?) {
   return _effect.run.bind(_effect);
 }
 
-export function trigger(obj: any, key: string | symbol) {
-  let depMap = bucket.get(obj);
-  if (!depMap) return;
-  const deps = depMap.get(key);
+export function trigger(target: any, key: string | symbol) {
+  let depsMap = bucket.get(target);
+  if (!depsMap) return;
+  const deps = depsMap.get(key);
   if (!deps) return;
   deps.forEach((dep) => {
     if (dep.options?.scheduler) {
@@ -29,14 +29,14 @@ export function trigger(obj: any, key: string | symbol) {
     }
   });
 }
-export function track(obj: any, key: string | symbol) {
-  let depMap = bucket.get(obj);
-  if (!depMap) {
-    bucket.set(obj, (depMap = new Map()));
+export function track(target: any, key: string | symbol) {
+  let depsMap = bucket.get(target);
+  if (!depsMap) {
+    bucket.set(target, (depsMap = new Map()));
   }
-  let deps = depMap.get(key);
+  let deps = depsMap.get(key);
   if (!deps) {
-    depMap.set(key, (deps = []));
+    depsMap.set(key, (deps = []));
   }
   deps.push(activeEffect);
 }

@@ -36,7 +36,7 @@ export function track(target: any, key: string | symbol) {
   }
   let deps = depsMap.get(key);
   if (!deps) {
-    depsMap.set(key, (deps = []));
+    depsMap.set(key, (deps = new Set()));
   }
-  deps.push(activeEffect);
+  deps.add(activeEffect);
 }

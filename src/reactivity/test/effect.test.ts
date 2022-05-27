@@ -46,7 +46,7 @@ describe("effect", () => {
     expect(scheduler).not.toHaveBeenCalled();
     expect(dummy).toBe(1);
     obj.foo++;
-    // expect(scheduler).toHaveBeenCalledTimes(1);
+    expect(scheduler).toHaveBeenCalledTimes(1);
     expect(dummy).toBe(1);
     run();
     expect(dummy).toBe(2);

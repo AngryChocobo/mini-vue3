@@ -2,18 +2,33 @@ const bucket = new Map();
 let activeEffect;
 
 class ReactiveEffect {
-  constructor(private fn, private options?) {
-    //
-  }
+  deps = [];
+  constructor(private fn, private options?) {}
   run() {
     activeEffect = this;
     return this.fn();
   }
+  stop() {
+    cleanup(this);
+  }
 }
+
+function cleanup(effect) {
+  effect.deps.forEach((dep: any) => {
+    dep.delete(effect);
+  });
+}
+
 export function effect(fn, options?) {
   const _effect = new ReactiveEffect(fn, options);
   _effect.run();
-  return _effect.run.bind(_effect);
+  const runner: any = _effect.run.bind(_effect);
+  runner.effect = _effect;
+  return runner;
+}
+
+export function stop(runner) {
+  runner.effect.stop();
 }
 
 export function trigger(target: any, key: string | symbol) {
@@ -34,9 +49,10 @@ export function track(target: any, key: string | symbol) {
   if (!depsMap) {
     bucket.set(target, (depsMap = new Map()));
   }
-  let deps = depsMap.get(key);
-  if (!deps) {
-    depsMap.set(key, (deps = new Set()));
+  let dep = depsMap.get(key);
+  if (!dep) {
+    depsMap.set(key, (dep = new Set()));
   }
-  deps.add(activeEffect);
+  dep.add(activeEffect);
+  activeEffect.deps.push(dep);
 }

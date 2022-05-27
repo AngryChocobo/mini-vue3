@@ -1,4 +1,4 @@
-import { effect } from "../effect";
+import { effect, stop } from "../effect";
 import { reactive } from "../reactive";
 
 describe("effect", () => {
@@ -49,6 +49,22 @@ describe("effect", () => {
     expect(scheduler).toHaveBeenCalledTimes(1);
     expect(dummy).toBe(1);
     run();
+    expect(dummy).toBe(2);
+  });
+  test("stop", () => {
+    let dummy;
+
+    const obj = reactive({ foo: 1 });
+    const runner = effect(function foo() {
+      dummy = obj.foo;
+    });
+
+    expect(dummy).toBe(1);
+    stop(runner);
+    obj.foo = 2;
+    expect(dummy).toBe(1);
+
+    runner();
     expect(dummy).toBe(2);
   });
 });

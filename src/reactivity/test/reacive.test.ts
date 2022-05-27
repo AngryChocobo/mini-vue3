@@ -1,4 +1,4 @@
-import { reactive, readonly } from "../reactive";
+import { reactive, readonly, isReactive, isReadonly } from "../reactive";
 
 describe("reactive", () => {
   test("happy ", () => {
@@ -8,6 +8,16 @@ describe("reactive", () => {
     const user = reactive(origin);
     expect(user).not.toBe(origin);
     expect(user.age).toBe(10);
+  });
+  test("isReactive", () => {
+    const origin = {
+      age: 10,
+    };
+    const user = reactive({
+      age: 10,
+    });
+    expect(isReactive(origin)).toBe(false);
+    expect(isReactive(user)).toBe(true);
   });
 });
 
@@ -28,5 +38,15 @@ describe("readonly", () => {
       "set readonly target key: age failed",
       user
     );
+  });
+  test("isReadonly", () => {
+    const origin = {
+      age: 10,
+    };
+    const user = readonly({
+      age: 10,
+    });
+    expect(isReadonly(origin)).toBe(false);
+    expect(isReadonly(user)).toBe(true);
   });
 });

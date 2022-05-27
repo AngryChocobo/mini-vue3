@@ -10,6 +10,9 @@ class ReactiveEffect {
   }
   stop() {
     cleanup(this);
+    if (this.options?.onStop) {
+      this.options.onStop();
+    }
   }
 }
 
@@ -45,6 +48,7 @@ export function trigger(target: any, key: string | symbol) {
   });
 }
 export function track(target: any, key: string | symbol) {
+  if (!activeEffect) return;
   let depsMap = bucket.get(target);
   if (!depsMap) {
     bucket.set(target, (depsMap = new Map()));

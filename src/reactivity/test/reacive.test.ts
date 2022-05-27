@@ -13,6 +13,7 @@ describe("reactive", () => {
 
 describe("readonly", () => {
   test("readonly ", () => {
+    console.warn = jest.fn();
     const origin = {
       age: 10,
     };
@@ -22,5 +23,10 @@ describe("readonly", () => {
 
     user.age = 35;
     expect(user.age).toBe(10);
+    expect(console.warn).toBeCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(
+      "set readonly target key: age failed",
+      user
+    );
   });
 });

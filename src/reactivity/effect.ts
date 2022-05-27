@@ -6,13 +6,14 @@ class ReactiveEffect {
     //
   }
   run() {
-    this.fn();
+    activeEffect = this.fn;
+    return this.fn();
   }
 }
 export function effect(fn) {
-  activeEffect = fn;
   const _effect = new ReactiveEffect(fn);
   _effect.run();
+  return _effect.run.bind(_effect);
 }
 
 export function trigger(obj: any, key: string | symbol) {

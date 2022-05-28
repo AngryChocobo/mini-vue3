@@ -59,13 +59,13 @@ describe("effect", () => {
       dummy = obj.foo;
     });
 
-    expect(dummy).toBe(1);
-    stop(runner);
     obj.foo = 2;
-    expect(dummy).toBe(1);
-
-    runner();
     expect(dummy).toBe(2);
+    stop(runner);
+    obj.foo++;
+    expect(dummy).toBe(2);
+    runner();
+    expect(dummy).toBe(3);
   });
   test("onStop", () => {
     const onStop = jest.fn();

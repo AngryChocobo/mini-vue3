@@ -1,17 +1,29 @@
 const bucket = new Map();
 let activeEffect;
+let shouldTrack = true;
 
 class ReactiveEffect {
+  active = true;
   deps = [];
   constructor(private fn, private options?) {}
   run() {
+    if (!this.active) {
+      return this.fn();
+    }
+    shouldTrack = true;
     activeEffect = this;
-    return this.fn();
+    const result = this.fn();
+    shouldTrack = false;
+    return result;
   }
   stop() {
-    cleanup(this);
-    if (this.options?.onStop) {
-      this.options.onStop();
+    shouldTrack = false;
+    if (this.active) {
+      cleanup(this);
+      this.active = false;
+      if (this.options?.onStop) {
+        this.options.onStop();
+      }
     }
   }
 }
@@ -26,6 +38,7 @@ export function effect(fn, options?) {
   const _effect = new ReactiveEffect(fn, options);
   _effect.run();
   const runner: any = _effect.run.bind(_effect);
+  // so we can find runner's effect
   runner.effect = _effect;
   return runner;
 }
@@ -49,6 +62,7 @@ export function trigger(target: any, key: string | symbol) {
 }
 export function track(target: any, key: string | symbol) {
   if (!activeEffect) return;
+  if (!shouldTrack) return;
   let depsMap = bucket.get(target);
   if (!depsMap) {
     bucket.set(target, (depsMap = new Map()));

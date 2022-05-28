@@ -1,4 +1,10 @@
-import { reactive, readonly, isReactive, isReadonly } from "../reactive";
+import {
+  reactive,
+  readonly,
+  shallowReadonly,
+  isReactive,
+  isReadonly,
+} from "../reactive";
 
 describe("reactive", () => {
   test("happy ", () => {
@@ -60,8 +66,24 @@ describe("readonly", () => {
       array: [{ bar: 2 }],
     };
     const observed = readonly(original);
+    expect(isReadonly(observed)).toBe(true);
     expect(isReadonly(observed.nested)).toBe(true);
     expect(isReadonly(observed.array)).toBe(true);
     expect(isReadonly(observed.array[0])).toBe(true);
+  });
+
+  test("shallowReadonly", () => {
+    const original = {
+      nested: {
+        foo: null,
+      },
+      array: [{ bar: 2 }],
+    };
+    const observed = shallowReadonly(original);
+    expect(isReadonly(observed)).toBe(true);
+    expect(isReadonly(observed.nested)).toBe(false);
+    expect(isReadonly(observed.nested.foo)).toBe(false);
+    expect(isReadonly(observed.array)).toBe(false);
+    expect(isReadonly(observed.array[0])).toBe(false);
   });
 });

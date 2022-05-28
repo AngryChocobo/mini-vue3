@@ -60,9 +60,15 @@ export function trigger(target: any, key: string | symbol) {
     }
   });
 }
+
+export function isTracking() {
+  return activeEffect && shouldTrack;
+}
+
 export function track(target: any, key: string | symbol) {
-  if (!activeEffect) return;
-  if (!shouldTrack) return;
+  if (!isTracking()) {
+    return;
+  }
   let depsMap = bucket.get(target);
   if (!depsMap) {
     bucket.set(target, (depsMap = new Map()));

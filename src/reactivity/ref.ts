@@ -1,4 +1,4 @@
-import { isTracking, trackDep, triggerDep } from "./effect";
+import { isTracking, trackEffects, triggerEffects } from "./effect";
 
 class RefImpl {
   dep = new Set();
@@ -7,13 +7,13 @@ class RefImpl {
   }
   get value() {
     if (isTracking()) {
-      trackDep(this.dep);
+      trackEffects(this.dep);
     }
     return this.data;
   }
   set value(newValue) {
     this.data = newValue;
-    triggerDep(this.dep);
+    triggerEffects(this.dep);
   }
 }
 

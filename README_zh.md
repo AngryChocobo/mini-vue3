@@ -4,7 +4,7 @@
 
 **[中文](README_zh.md)** | **[English](README.md)**
 
-## Unsolved Mysteries
+## 未解之谜~
 
 ### stop
 
@@ -25,6 +25,6 @@
 
 - ReactiveEffect 类的 options，vue 源码并没有显式地传递，而是通过封装了 Object.assign 为 ReactiveEffect 实例直接"增加"对应的值，这不是一种反模式吗？
 
-## My Wrong Understanding
+## 我的错误理解
 
 - ReactiveEffect，我一开始理解是 stop 和 runner 是一组成对出现的 api，可以切换 active 状态。但实际上一旦 stop 以后，active 就始终是 false 了

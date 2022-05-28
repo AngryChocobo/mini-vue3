@@ -4,6 +4,7 @@ import {
   shallowReadonly,
   isReactive,
   isReadonly,
+  isProxy,
 } from "../reactive";
 
 describe("reactive", () => {
@@ -24,6 +25,7 @@ describe("reactive", () => {
     });
     expect(isReactive(origin)).toBe(false);
     expect(isReactive(user)).toBe(true);
+    expect(isProxy(user)).toBe(true);
   });
   test("nested reactive", () => {
     const original = {
@@ -50,6 +52,8 @@ describe("readonly", () => {
     expect(user.age).toBe(10);
     expect(isReadonly(origin)).toBe(false);
     expect(isReadonly(user)).toBe(true);
+    expect(isProxy(user)).toBe(true);
+
     user.age = 35;
     expect(user.age).toBe(10);
     expect(console.warn).toBeCalledTimes(1);

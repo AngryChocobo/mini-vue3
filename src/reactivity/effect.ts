@@ -52,6 +52,10 @@ export function trigger(target: any, key: string | symbol) {
   if (!depsMap) return;
   const deps = depsMap.get(key);
   if (!deps) return;
+  triggerDep(deps);
+}
+
+export function triggerDep(deps: Set<any>) {
   deps.forEach((dep) => {
     if (dep.options?.scheduler) {
       dep.options.scheduler();
@@ -77,6 +81,10 @@ export function track(target: any, key: string | symbol) {
   if (!dep) {
     depsMap.set(key, (dep = new Set()));
   }
+  trackDep(dep);
+}
+
+export function trackDep(dep: Set<any>) {
   dep.add(activeEffect);
   activeEffect.deps.push(dep);
 }

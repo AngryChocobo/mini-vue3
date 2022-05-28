@@ -19,10 +19,22 @@ describe("reactive", () => {
     expect(isReactive(origin)).toBe(false);
     expect(isReactive(user)).toBe(true);
   });
+  test("nested reactive", () => {
+    const original = {
+      nested: {
+        foo: null,
+      },
+      array: [{ bar: 2 }],
+    };
+    const observed = reactive(original);
+    expect(isReactive(observed.nested)).toBe(true);
+    expect(isReactive(observed.array)).toBe(true);
+    expect(isReactive(observed.array[0])).toBe(true);
+  });
 });
 
 describe("readonly", () => {
-  test("readonly ", () => {
+  test("readonly", () => {
     console.warn = jest.fn();
     const origin = {
       age: 10,
@@ -30,7 +42,8 @@ describe("readonly", () => {
     const user = readonly(origin);
     expect(user).not.toBe(origin);
     expect(user.age).toBe(10);
-
+    expect(isReadonly(origin)).toBe(false);
+    expect(isReadonly(user)).toBe(true);
     user.age = 35;
     expect(user.age).toBe(10);
     expect(console.warn).toBeCalledTimes(1);
@@ -39,14 +52,16 @@ describe("readonly", () => {
       user
     );
   });
-  test("isReadonly", () => {
-    const origin = {
-      age: 10,
+  test("nested readonly", () => {
+    const original = {
+      nested: {
+        foo: null,
+      },
+      array: [{ bar: 2 }],
     };
-    const user = readonly({
-      age: 10,
-    });
-    expect(isReadonly(origin)).toBe(false);
-    expect(isReadonly(user)).toBe(true);
+    const observed = readonly(original);
+    expect(isReadonly(observed.nested)).toBe(true);
+    expect(isReadonly(observed.array)).toBe(true);
+    expect(isReadonly(observed.array[0])).toBe(true);
   });
 });

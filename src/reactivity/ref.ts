@@ -3,7 +3,7 @@ import { hasChanged, isObject } from "../utils";
 import { reactive } from "./reactive";
 
 class RefImpl {
-  private dep = new Set();
+  dep = new Set();
   private __v_isRef = true;
   private _value: any;
   private _rawValue: any;

@@ -1,5 +1,5 @@
 import { effect } from "../effect";
-import { ref } from "../ref";
+import { ref, isRef, unRef } from "../ref";
 
 describe("ref", () => {
   test("should happy", () => {
@@ -39,5 +39,17 @@ describe("ref", () => {
       count: [],
     };
     expect(dummy).toStrictEqual([]);
+  });
+
+  test("isRef", () => {
+    const origin = { count: 1 };
+    const a = ref(origin);
+    expect(isRef(origin)).toBe(false);
+    expect(isRef(a)).toBe(true);
+  });
+  test("unRef", () => {
+    const a = ref(1);
+    expect(unRef(a)).toBe(1);
+    expect(unRef(1)).toBe(1);
   });
 });

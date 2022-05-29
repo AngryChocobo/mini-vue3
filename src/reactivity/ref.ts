@@ -3,8 +3,8 @@ import { hasChanged, isObject } from "../utils";
 import { reactive } from "./reactive";
 
 class RefImpl {
-  dep = new Set();
-  __v_isRef = true;
+  private dep = new Set();
+  private __v_isRef = true;
   private _value: any;
   private _rawValue: any;
   constructor(_value) {
@@ -34,13 +34,33 @@ export function trackRefValue(ref: RefImpl) {
     trackEffects(ref.dep);
   }
 }
+
 export function ref(raw) {
   const refObj = new RefImpl(raw);
   return refObj;
 }
-export function isRef(raw) {
+
+export function isRef(raw): raw is RefImpl {
   return !!raw && !!raw.__v_isRef;
 }
+
 export function unRef(raw) {
   return isRef(raw) ? raw.value : raw;
+}
+
+export function proxyRefs(raw) {
+  return new Proxy(raw, {
+    get(target, key) {
+      const value = Reflect.get(target, key);
+      return unRef(value);
+    },
+    set(target, key, newValue) {
+      const value = Reflect.get(target, key);
+      if (isRef(value) && !isRef(newValue)) {
+        return (value.value = newValue);
+      } else {
+        return Reflect.set(target, key, newValue);
+      }
+    },
+  });
 }

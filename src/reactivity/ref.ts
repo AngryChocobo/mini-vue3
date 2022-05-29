@@ -2,17 +2,26 @@ import { isTracking, trackEffects, triggerEffects } from "./effect";
 import { hasChanged, isObject } from "../utils";
 import { reactive } from "./reactive";
 
-class RefImpl {
+type Ref<T = any> = {
+  value: T;
+};
+
+type RefBase<T> = {
+  dep?: any;
+  value: T;
+};
+
+class RefImpl<T> {
   dep = new Set();
   private __v_isRef = true;
-  private _value: any;
-  private _rawValue: any;
-  constructor(_value) {
+  private _value: T;
+  private _rawValue: T;
+  constructor(_value: T) {
     this._rawValue = _value;
     this._value = convert(_value);
   }
 
-  get value() {
+  get value(): T {
     trackRefValue(this);
     return this._value;
   }
@@ -29,22 +38,22 @@ function convert(value) {
   return isObject(value) ? reactive(value) : value;
 }
 
-export function trackRefValue(ref: RefImpl) {
+export function trackRefValue(ref: RefBase<any>) {
   if (isTracking()) {
     trackEffects(ref.dep);
   }
 }
 
-export function ref(raw) {
+export function ref<T>(raw: T) {
   const refObj = new RefImpl(raw);
   return refObj;
 }
 
-export function isRef(raw): raw is RefImpl {
-  return !!raw && !!raw.__v_isRef;
+export function isRef<T>(raw: Ref<T> | any): raw is Ref<T> {
+  return !!(raw && raw.__v_isRef);
 }
 
-export function unRef(raw) {
+export function unRef<T>(raw: Ref<T> | T) {
   return isRef(raw) ? raw.value : raw;
 }
 

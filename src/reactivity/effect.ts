@@ -2,10 +2,20 @@ const bucket = new Map();
 let activeEffect;
 let shouldTrack = true;
 
-class ReactiveEffect {
+type ReactiveEffectOptions = {
+  onStop?: Function;
+  scheduler?: Function;
+};
+
+export class ReactiveEffect {
   active = true;
   deps = [];
-  constructor(private fn, private options?) {}
+  scheduler: Function | undefined;
+  onStop: Function | undefined;
+  constructor(private fn, options?: ReactiveEffectOptions) {
+    this.scheduler = options?.scheduler;
+    this.onStop = options?.onStop;
+  }
   run() {
     if (!this.active) {
       return this.fn();
@@ -21,8 +31,8 @@ class ReactiveEffect {
     if (this.active) {
       cleanup(this);
       this.active = false;
-      if (this.options?.onStop) {
-        this.options.onStop();
+      if (this?.onStop) {
+        this.onStop();
       }
     }
   }
@@ -55,10 +65,10 @@ export function trigger(target: any, key: string | symbol) {
   triggerEffects(deps);
 }
 
-export function triggerEffects(deps: Set<any>) {
+export function triggerEffects(deps: Set<ReactiveEffect>) {
   deps.forEach((dep) => {
-    if (dep.options?.scheduler) {
-      dep.options.scheduler();
+    if (dep?.scheduler) {
+      dep.scheduler();
     } else {
       dep.run();
     }

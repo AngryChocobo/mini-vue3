@@ -25,7 +25,7 @@ class RefImpl<T> {
     trackRefValue(this);
     return this._value;
   }
-  set value(newValue) {
+  set value(newValue: any) {
     if (hasChanged(this._rawValue, newValue)) {
       this._rawValue = newValue;
       this._value = convert(newValue);

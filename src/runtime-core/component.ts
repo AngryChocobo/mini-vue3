@@ -21,7 +21,10 @@ export function createComponentInstance(vnode: VNode) {
   };
   return component;
 }
-export function setupComponent(instance: ComponentInternalInstance, container) {
+export function setupComponent(
+  instance: ComponentInternalInstance,
+  container: HTMLElement
+) {
   // initProps();
   // initSlot();
   setupStatefulComponent(instance);
@@ -66,7 +69,10 @@ function finishComponentSetup(instance: ComponentInternalInstance) {
   }
 }
 
-function setupRenderEffect(instance: ComponentInternalInstance, container) {
+function setupRenderEffect(
+  instance: ComponentInternalInstance,
+  container: HTMLElement
+) {
   // const subTree = instance.render.call(instance.setupState);
   // TODO maybe sometime don't need this if
   if (instance.render) {

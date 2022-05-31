@@ -1,11 +1,11 @@
 import { isObject } from "../utils/index";
 import { createComponentInstance, setupComponent } from "./component";
 
-export function render(vnode, container) {
+export function render(vnode, container: HTMLElement) {
   patch(vnode, container);
 }
 
-export function patch(vnode: any, container: any) {
+export function patch(vnode: any, container: HTMLElement) {
   if (isObject(vnode.type)) {
     processComponent(vnode, container);
   } else {
@@ -13,11 +13,11 @@ export function patch(vnode: any, container: any) {
   }
 }
 
-function processComponent(vnode: any, container: any) {
+function processComponent(vnode: any, container: HTMLElement) {
   mountComponent(vnode, container);
 }
 
-function mountComponent(vnode: any, container) {
+function mountComponent(vnode: any, container: HTMLElement) {
   const instance = createComponentInstance(vnode);
   setupComponent(instance, container);
 }

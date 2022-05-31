@@ -5,6 +5,7 @@ export function createComponentInstance(vnode: any) {
   const component = {
     vnode,
     type: vnode.type,
+    setupState: {},
   };
   return component;
 }
@@ -15,21 +16,19 @@ export function setupComponent(instance: { vnode: any }, container) {
   setupRenderEffect(instance, container);
 }
 
-function setupRenderEffect(instance: any, container) {
-  const subTree = instance.render();
-  patch(subTree, container);
-}
-
-function initProps() {
-  throw new Error("Function not implemented.");
-}
-
-function initSlot() {
-  throw new Error("Function not implemented.");
-}
-
-function setupStatefulComponent(instance: { vnode: any }) {
+function setupStatefulComponent(instance: any) {
   const Component = instance.vnode.type;
+  instance.proxy = new Proxy(
+    {},
+    {
+      get(target, key) {
+        const { setupState } = instance;
+        if (key in setupState) {
+          return setupState[key];
+        }
+      },
+    }
+  );
   const { setup } = Component;
   if (setup) {
     const setupResult = setup();
@@ -39,7 +38,7 @@ function setupStatefulComponent(instance: { vnode: any }) {
 }
 
 function handleSetupResult(instance, setupResult: any) {
-  if (isObject(setupComponent)) {
+  if (isObject(setupResult)) {
     // extends object
     instance.setupState = setupResult;
   }
@@ -51,4 +50,18 @@ function finishComponentSetup(instance: any) {
   if (Component.render) {
     instance.render = Component.render;
   }
+}
+
+function setupRenderEffect(instance: any, container) {
+  // const subTree = instance.render.call(instance.setupState);
+  const subTree = instance.render.call(instance.proxy);
+  patch(subTree, container);
+}
+
+function initProps() {
+  throw new Error("Function not implemented.");
+}
+
+function initSlot() {
+  throw new Error("Function not implemented.");
 }

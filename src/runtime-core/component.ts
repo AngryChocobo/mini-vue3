@@ -1,22 +1,34 @@
 import { isObject } from "../utils/index";
 import { patch } from "./render";
 
-export function createComponentInstance(vnode: any) {
-  const component = {
+type VNode = {
+  type: any;
+};
+
+type ComponentInternalInstance = {
+  vnode: VNode;
+  type: VNode["type"];
+  setupState: any;
+  proxy?: any;
+  render?: Function;
+};
+
+export function createComponentInstance(vnode: VNode) {
+  const component: ComponentInternalInstance = {
     vnode,
     type: vnode.type,
     setupState: {},
   };
   return component;
 }
-export function setupComponent(instance: { vnode: any }, container) {
+export function setupComponent(instance: ComponentInternalInstance, container) {
   // initProps();
   // initSlot();
   setupStatefulComponent(instance);
   setupRenderEffect(instance, container);
 }
 
-function setupStatefulComponent(instance: any) {
+function setupStatefulComponent(instance: ComponentInternalInstance) {
   const Component = instance.vnode.type;
   instance.proxy = new Proxy(
     {},
@@ -32,12 +44,14 @@ function setupStatefulComponent(instance: any) {
   const { setup } = Component;
   if (setup) {
     const setupResult = setup();
-
     handleSetupResult(instance, setupResult);
   }
 }
 
-function handleSetupResult(instance, setupResult: any) {
+function handleSetupResult(
+  instance: ComponentInternalInstance,
+  setupResult: any
+) {
   if (isObject(setupResult)) {
     // extends object
     instance.setupState = setupResult;
@@ -45,17 +59,20 @@ function handleSetupResult(instance, setupResult: any) {
   finishComponentSetup(instance);
 }
 
-function finishComponentSetup(instance: any) {
+function finishComponentSetup(instance: ComponentInternalInstance) {
   const Component = instance.vnode.type;
   if (Component.render) {
     instance.render = Component.render;
   }
 }
 
-function setupRenderEffect(instance: any, container) {
+function setupRenderEffect(instance: ComponentInternalInstance, container) {
   // const subTree = instance.render.call(instance.setupState);
-  const subTree = instance.render.call(instance.proxy);
-  patch(subTree, container);
+  // TODO maybe sometime don't need this if
+  if (instance.render) {
+    const subTree = instance.render.call(instance.proxy);
+    patch(subTree, container);
+  }
 }
 
 function initProps() {

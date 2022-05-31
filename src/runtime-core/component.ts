@@ -2,7 +2,7 @@ import { isObject } from "../utils/index";
 import { patch } from "./render";
 import { VNode } from "./vnode";
 
-type ComponentInternalInstance = {
+export type ComponentInternalInstance = {
   vnode: VNode;
   type: VNode["type"];
   setupState: any;
@@ -18,14 +18,10 @@ export function createComponentInstance(vnode: VNode) {
   };
   return component;
 }
-export function setupComponent(
-  instance: ComponentInternalInstance,
-  container: HTMLElement
-) {
+export function setupComponent(instance: ComponentInternalInstance) {
   // initProps();
   // initSlot();
   setupStatefulComponent(instance);
-  setupRenderEffect(instance, container);
 }
 
 function setupStatefulComponent(instance: ComponentInternalInstance) {
@@ -37,6 +33,9 @@ function setupStatefulComponent(instance: ComponentInternalInstance) {
         const { setupState } = instance;
         if (key in setupState) {
           return setupState[key];
+        }
+        if (key === "$el") {
+          return instance.vnode.el;
         }
       },
     }
@@ -63,18 +62,6 @@ function finishComponentSetup(instance: ComponentInternalInstance) {
   const Component = instance.vnode.type;
   if (Component.render) {
     instance.render = Component.render;
-  }
-}
-
-function setupRenderEffect(
-  instance: ComponentInternalInstance,
-  container: HTMLElement
-) {
-  // const subTree = instance.render.call(instance.setupState);
-  // TODO maybe sometime don't need this if
-  if (instance.render) {
-    const subTree = instance.render.call(instance.proxy);
-    patch(subTree, container);
   }
 }
 

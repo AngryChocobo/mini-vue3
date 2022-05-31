@@ -1,5 +1,9 @@
 import { isObject } from "../utils/index";
-import { createComponentInstance, setupComponent } from "./component";
+import {
+  ComponentInternalInstance,
+  createComponentInstance,
+  setupComponent,
+} from "./component";
 import { VNode, VNodeArrayChildren } from "./vnode";
 
 export function render(vnode: VNode, container: HTMLElement) {
@@ -20,11 +24,27 @@ function processComponent(vnode: VNode, container: HTMLElement) {
 
 function mountComponent(vnode: VNode, container: HTMLElement) {
   const instance = createComponentInstance(vnode);
-  setupComponent(instance, container);
+  setupComponent(instance);
+  setupRenderEffect(instance, vnode, container);
+}
+
+function setupRenderEffect(
+  instance: ComponentInternalInstance,
+  vnode: VNode,
+  container: HTMLElement
+) {
+  // const subTree = instance.render.call(instance.setupState);
+  // TODO maybe sometime don't need this if
+  if (instance.render) {
+    const subTree = instance.render.call(instance.proxy);
+    patch(subTree, container);
+
+    vnode.el = subTree.el;
+  }
 }
 
 function processElement(vnode: VNode, container: HTMLElement) {
-  const el = document.createElement(vnode.type as string);
+  const el = (vnode.el = document.createElement(vnode.type as string));
   const { children, props } = vnode;
 
   if (typeof children === "string") {

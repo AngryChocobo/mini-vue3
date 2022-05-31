@@ -19,6 +19,7 @@ class ComputedImpl {
     return this._value;
   }
 }
+
 export function computed(fn: Function) {
   return new ComputedImpl(fn);
 }

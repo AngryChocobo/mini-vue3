@@ -1,4 +1,9 @@
-import { isTracking, trackEffects, triggerEffects } from "./effect";
+import {
+  isTracking,
+  ReactiveEffect,
+  trackEffects,
+  triggerEffects,
+} from "./effect";
 import { hasChanged, isObject } from "../utils";
 import { reactive } from "./reactive";
 
@@ -12,7 +17,7 @@ type RefBase<T> = {
 };
 
 class RefImpl<T> {
-  dep = new Set();
+  dep = new Set<ReactiveEffect>();
   private __v_isRef = true;
   private _value: T;
   private _rawValue: T;

@@ -1,5 +1,13 @@
+export type VNode = {
+  type: any;
+  props: any;
+  children: string | VNodeArrayChildren;
+};
+
+export type VNodeArrayChildren = any[];
+
 export function createVNode(type, props?, children?) {
-  const vnode = {
+  const vnode: VNode = {
     type,
     props,
     children,

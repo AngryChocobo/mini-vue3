@@ -1,9 +1,6 @@
 import { isObject } from "../utils/index";
 import { patch } from "./render";
-
-type VNode = {
-  type: any;
-};
+import { VNode } from "./vnode";
 
 type ComponentInternalInstance = {
   vnode: VNode;

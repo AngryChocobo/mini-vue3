@@ -1,11 +1,12 @@
 import { isObject } from "../utils/index";
 import { createComponentInstance, setupComponent } from "./component";
+import { VNode, VNodeArrayChildren } from "./vnode";
 
-export function render(vnode, container: HTMLElement) {
+export function render(vnode: VNode, container: HTMLElement) {
   patch(vnode, container);
 }
 
-export function patch(vnode: any, container: HTMLElement) {
+export function patch(vnode: VNode, container: HTMLElement) {
   if (isObject(vnode.type)) {
     processComponent(vnode, container);
   } else {
@@ -13,16 +14,16 @@ export function patch(vnode: any, container: HTMLElement) {
   }
 }
 
-function processComponent(vnode: any, container: HTMLElement) {
+function processComponent(vnode: VNode, container: HTMLElement) {
   mountComponent(vnode, container);
 }
 
-function mountComponent(vnode: any, container: HTMLElement) {
+function mountComponent(vnode: VNode, container: HTMLElement) {
   const instance = createComponentInstance(vnode);
   setupComponent(instance, container);
 }
 
-function processElement(vnode: any, container: HTMLElement) {
+function processElement(vnode: VNode, container: HTMLElement) {
   const el = document.createElement(vnode.type as string);
   const { children, props } = vnode;
 
@@ -38,8 +39,8 @@ function processElement(vnode: any, container: HTMLElement) {
 
   container.appendChild(el);
 }
-function mountedChildren(vnode: any, container: HTMLElement) {
-  vnode.children.forEach((item) => {
+function mountedChildren(vnode: VNode, container: HTMLElement) {
+  (vnode.children as VNodeArrayChildren).forEach((item) => {
     patch(item, container);
   });
 }

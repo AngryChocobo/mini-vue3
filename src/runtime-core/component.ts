@@ -1,6 +1,7 @@
 import { isObject } from "../utils/index";
 import { patch } from "./render";
 import { VNode } from "./vnode";
+import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 
 export type ComponentInternalInstance = {
   vnode: VNode;
@@ -26,20 +27,7 @@ export function setupComponent(instance: ComponentInternalInstance) {
 
 function setupStatefulComponent(instance: ComponentInternalInstance) {
   const Component = instance.vnode.type;
-  instance.proxy = new Proxy(
-    {},
-    {
-      get(target, key) {
-        const { setupState } = instance;
-        if (key in setupState) {
-          return setupState[key];
-        }
-        if (key === "$el") {
-          return instance.vnode.el;
-        }
-      },
-    }
-  );
+  instance.proxy = new Proxy({ _: instance }, PublicInstanceProxyHandlers);
   const { setup } = Component;
   if (setup) {
     const setupResult = setup();

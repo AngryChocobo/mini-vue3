@@ -5,3 +5,4 @@ export const extend = Object.assign;
 
 export const hasChanged = (value: any, oldValue: any): boolean =>
   !Object.is(value, oldValue);
+export const hasOwn = (val, key) => Object.hasOwnProperty.call(val, key);

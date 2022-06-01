@@ -1,5 +1,4 @@
 import { isObject } from "../utils/index";
-import { patch } from "./render";
 import { VNode } from "./vnode";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 

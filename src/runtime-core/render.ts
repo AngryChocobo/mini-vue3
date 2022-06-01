@@ -50,16 +50,22 @@ function processElement(vnode: VNode, container: HTMLElement) {
   if (typeof children === "string") {
     el.textContent = children;
   } else if (Array.isArray(children)) {
-    mountedChildren(vnode, el);
+    mountChildren(vnode, el);
   }
 
   for (const key in props) {
-    el.setAttribute(key, props[key]);
+    const reg = /^on[A-Z]/;
+    if (key.match(reg)) {
+      const eventName = key.slice(2).toLowerCase();
+      el.addEventListener(eventName, props[key]);
+    } else {
+      el.setAttribute(key, props[key]);
+    }
   }
 
   container.appendChild(el);
 }
-function mountedChildren(vnode: VNode, container: HTMLElement) {
+function mountChildren(vnode: VNode, container: HTMLElement) {
   (vnode.children as VNodeArrayChildren).forEach((item) => {
     patch(item, container);
   });

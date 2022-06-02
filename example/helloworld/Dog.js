@@ -20,11 +20,12 @@ const Dog = {
       ),
     ]);
   },
-  setup(props) {
+  setup(props, { emit }) {
     if (props) {
       console.log(props.dogName);
       props.dogName = "小猫猫";
     }
+    console.log(emit);
     return {};
   },
 };

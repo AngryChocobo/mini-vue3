@@ -32,7 +32,7 @@ function setupStatefulComponent(instance: ComponentInternalInstance) {
   instance.proxy = new Proxy({ _: instance }, PublicInstanceProxyHandlers);
   const { setup } = Component;
   if (setup) {
-    const setupResult = setup(readonly(instance.props));
+    const setupResult = setup(readonly(instance.props), { emit: "awd" });
     handleSetupResult(instance, setupResult);
   }
 }

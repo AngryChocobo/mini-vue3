@@ -26,6 +26,8 @@ const Dog = {
       props.dogName = "小猫猫";
     }
     console.log(emit);
+    emit("load", "Dog loaded");
+    emit("load-data", "Dog loaded2");
     return {};
   },
 };

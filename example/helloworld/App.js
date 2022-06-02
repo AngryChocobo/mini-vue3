@@ -5,6 +5,14 @@ export const App = {
     return h("div", { id: "title", class: "red" }, [
       h(Dog, {
         dogName: "小狗狗",
+        onLoad(msg) {
+          const child = document.createTextNode(msg);
+          document.body.appendChild(child);
+        },
+        onLoadData(msg) {
+          const child = document.createTextNode(msg);
+          document.body.appendChild(child);
+        },
       }),
       h("span", { id: "dynamic-content" }, this.msg),
     ]);

@@ -4,7 +4,7 @@ import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";
 import { readonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
-import { initSlot } from "./componentSlots";
+import { initSlots } from "./componentSlots";
 
 export type ComponentInternalInstance = {
   vnode: VNode;
@@ -31,7 +31,7 @@ export function createComponentInstance(vnode: VNode) {
 
 export function setupComponent(instance: ComponentInternalInstance) {
   initProps(instance, instance.vnode.props);
-  initSlot(instance, instance.vnode.children);
+  initSlots(instance, instance.vnode.children);
   setupStatefulComponent(instance);
 }
 

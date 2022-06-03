@@ -33,11 +33,11 @@ const Dog = {
   },
 };
 
-describe("emit", () => {
+describe("props", () => {
   beforeEach(() => {
     createAppInstance(App);
   });
-  test("", () => {
+  test("props", () => {
     const dog = document.querySelector(".dog");
     expect(dog.textContent).toBe("旺财");
   });

@@ -47,7 +47,7 @@ describe("emit", () => {
 
     createAppInstance(App);
   });
-  test("", () => {
+  test("emit", () => {
     const dog = document.querySelector(".dog");
     dog.click();
     expect(console.log).toBeCalledTimes(1);

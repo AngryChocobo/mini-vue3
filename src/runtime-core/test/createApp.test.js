@@ -1,4 +1,5 @@
-import { createApp, h } from "../../../lib/mini-vue.esm.js";
+import { h } from "../../../lib/mini-vue.esm.js";
+import { createAppInstance } from "./beforeEach.js";
 
 const App = {
   name: "App",
@@ -14,11 +15,7 @@ const App = {
 
 describe("createApp", () => {
   beforeEach(() => {
-    const rootContainer = document.createElement("div");
-    rootContainer.setAttribute("id", "app");
-    document.body.appendChild(rootContainer);
-
-    createApp(App).mount(rootContainer);
+    createAppInstance(App);
   });
   test("createApp", () => {
     const target = document.querySelector("#title");

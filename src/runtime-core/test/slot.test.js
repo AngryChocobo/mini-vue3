@@ -5,7 +5,7 @@ const Hello = {
   name: "Hello",
   render() {
     console.log("this.$slots:", this.$slots);
-    return h("span", {}, "Hello, ");
+    return h("p", {}, [renderSlots(this.$slots)]);
   },
   setup() {
     return {};
@@ -16,7 +16,7 @@ const World = {
   name: "World",
   render() {
     console.log("this.$slots:", this.$slots);
-    return h("span", {}, [renderSlots(this.$slots)]);
+    return h("p", {}, [renderSlots(this.$slots)]);
   },
   setup() {
     return {};
@@ -26,8 +26,8 @@ const World = {
 const App = {
   name: "App",
   render() {
-    const hello = h(Hello, {});
-    const world = h(World, {}, [h("p", {}, "I am slot p")]);
+    const hello = h(Hello, {}, h("span", {}, "Hello, "));
+    const world = h(World, {}, [h("span", {}, "I am slot")]);
     return h("div", { id: "title", class: "title" }, [hello, world]);
   },
   setup() {
@@ -41,6 +41,6 @@ describe("slot", () => {
   });
   test("slot", () => {
     const target = document.querySelector("#title");
-    expect(target.textContent).toBe("Hello, I am slot p");
+    expect(target.textContent).toBe("Hello, I am slot");
   });
 });

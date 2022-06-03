@@ -1,6 +1,6 @@
 {
   // Change this to match your project
-  "include": ["src/main.ts"],
+  "include": ["src/**/*"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 

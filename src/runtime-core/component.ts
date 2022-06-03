@@ -4,12 +4,14 @@ import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";
 import { readonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
+import { initSlot } from "./componentSlots";
 
 export type ComponentInternalInstance = {
   vnode: VNode;
   type: VNode["type"];
   setupState: any;
   emit: (eventName: string) => void;
+  slots: {};
   proxy?: any;
   render?: Function;
   props?: any;
@@ -21,13 +23,15 @@ export function createComponentInstance(vnode: VNode) {
     type: vnode.type,
     setupState: {},
     emit: () => {},
+    slots: {},
   };
   component.emit = emit.bind(null, component);
   return component;
 }
+
 export function setupComponent(instance: ComponentInternalInstance) {
-  initProps(instance);
-  // initSlot();
+  initProps(instance, instance.vnode.props);
+  initSlot(instance, instance.vnode.children);
   setupStatefulComponent(instance);
 }
 
@@ -59,8 +63,4 @@ function finishComponentSetup(instance: ComponentInternalInstance) {
   if (Component.render) {
     instance.render = Component.render;
   }
-}
-
-function initSlot() {
-  throw new Error("Function not implemented.");
 }

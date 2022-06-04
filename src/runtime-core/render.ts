@@ -6,24 +6,40 @@ import {
 } from "./component";
 import { VNode, VNodeArrayChildren } from "./vnode";
 
-export function render(vnode: VNode, container: HTMLElement) {
-  patch(vnode, container);
+export function render(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
+  patch(vnode, container, parent);
 }
 
-export function patch(vnode: VNode, container: HTMLElement) {
+export function patch(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
   if (isObject(vnode.type)) {
-    processComponent(vnode, container);
+    processComponent(vnode, container, parent);
   } else {
-    processElement(vnode, container);
+    processElement(vnode, container, parent);
   }
 }
 
-function processComponent(vnode: VNode, container: HTMLElement) {
-  mountComponent(vnode, container);
+function processComponent(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
+  mountComponent(vnode, container, parent);
 }
 
-function mountComponent(vnode: VNode, container: HTMLElement) {
-  const instance = createComponentInstance(vnode);
+function mountComponent(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
+  const instance = createComponentInstance(vnode, parent);
   setupComponent(instance);
   setupRenderEffect(instance, vnode, container);
 }
@@ -37,20 +53,24 @@ function setupRenderEffect(
   // TODO maybe sometime don't need this if
   if (instance.render) {
     const subTree = instance.render.call(instance.proxy);
-    patch(subTree, container);
+    patch(subTree, container, instance);
 
     vnode.el = subTree.el;
   }
 }
 
-function processElement(vnode: VNode, container: HTMLElement) {
+function processElement(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
   const el = (vnode.el = document.createElement(vnode.type as string));
   const { children, props } = vnode;
 
   if (typeof children === "string") {
     el.textContent = children;
   } else if (Array.isArray(children)) {
-    mountChildren(vnode, el);
+    mountChildren(vnode, el, parent);
   }
 
   for (const key in props) {
@@ -65,8 +85,12 @@ function processElement(vnode: VNode, container: HTMLElement) {
 
   container.appendChild(el);
 }
-function mountChildren(vnode: VNode, container: HTMLElement) {
+function mountChildren(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
   (vnode.children as VNodeArrayChildren).forEach((item) => {
-    patch(item, container);
+    patch(item, container, parent);
   });
 }

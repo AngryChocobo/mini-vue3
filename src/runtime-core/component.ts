@@ -15,15 +15,20 @@ export type ComponentInternalInstance = {
   proxy?: any;
   render?: Function;
   props?: any;
+  parent: ComponentInternalInstance | null;
 };
 
-export function createComponentInstance(vnode: VNode) {
+export function createComponentInstance(
+  vnode: VNode,
+  parent: ComponentInternalInstance | null
+) {
   const component: ComponentInternalInstance = {
     vnode,
     type: vnode.type,
     setupState: {},
     emit: () => {},
     slots: {},
+    parent,
   };
   component.emit = emit.bind(null, component);
   return component;

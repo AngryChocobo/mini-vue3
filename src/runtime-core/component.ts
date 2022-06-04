@@ -16,6 +16,7 @@ export type ComponentInternalInstance = {
   render?: Function;
   props?: any;
   parent: ComponentInternalInstance | null;
+  provides: {};
 };
 
 export function createComponentInstance(
@@ -29,6 +30,7 @@ export function createComponentInstance(
     emit: () => {},
     slots: {},
     parent,
+    provides: parent ? parent.provides : {},
   };
   component.emit = emit.bind(null, component);
   return component;

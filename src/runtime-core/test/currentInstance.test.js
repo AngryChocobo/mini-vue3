@@ -9,7 +9,6 @@ const App = {
   },
   setup() {
     current = getCurrentInstance();
-    console.log(current);
     return {};
   },
 };

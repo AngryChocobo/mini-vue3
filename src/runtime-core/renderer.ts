@@ -6,6 +6,8 @@ import {
 } from "./component";
 import { VNode, VNodeArrayChildren } from "./vnode";
 
+export const Fragment = Symbol("Fragment");
+
 export function render(
   vnode: VNode,
   container: HTMLElement,
@@ -19,11 +21,20 @@ export function patch(
   container: HTMLElement,
   parent: ComponentInternalInstance | null
 ) {
-  const { shapeFlag } = vnode;
-  if (shapeFlag & ShapeFlags.ELEMENT) {
-    processElement(vnode, container, parent);
-  } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-    processComponent(vnode, container, parent);
+  const { shapeFlag, type } = vnode;
+
+  switch (type) {
+    case Fragment:
+      processFragment(vnode, container, parent);
+      break;
+
+    default:
+      if (shapeFlag & ShapeFlags.ELEMENT) {
+        processElement(vnode, container, parent);
+      } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
+        processComponent(vnode, container, parent);
+      }
+      break;
   }
 }
 
@@ -94,4 +105,12 @@ function mountChildren(
   (vnode.children as VNodeArrayChildren).forEach((item) => {
     patch(item, container, parent);
   });
+}
+
+function processFragment(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
+  mountChildren(vnode, container, parent);
 }

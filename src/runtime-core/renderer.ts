@@ -1,4 +1,4 @@
-import { isObject } from "../utils/index";
+import { ShapeFlags } from "../shared/shapeFlags";
 import {
   ComponentInternalInstance,
   createComponentInstance,
@@ -19,10 +19,11 @@ export function patch(
   container: HTMLElement,
   parent: ComponentInternalInstance | null
 ) {
-  if (isObject(vnode.type)) {
-    processComponent(vnode, container, parent);
-  } else {
+  const { shapeFlag } = vnode;
+  if (shapeFlag & ShapeFlags.ELEMENT) {
     processElement(vnode, container, parent);
+  } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
+    processComponent(vnode, container, parent);
   }
 }
 

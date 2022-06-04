@@ -40,9 +40,11 @@ function setupStatefulComponent(instance: ComponentInternalInstance) {
   instance.proxy = new Proxy({ _: instance }, PublicInstanceProxyHandlers);
   const { setup } = Component;
   if (setup) {
+    setCurrentInstance(instance);
     const setupResult = setup(readonly(instance.props), {
       emit: instance.emit,
     });
+    setCurrentInstance(null);
     handleSetupResult(instance, setupResult);
   }
 }
@@ -63,4 +65,12 @@ function finishComponentSetup(instance: ComponentInternalInstance) {
   if (Component.render) {
     instance.render = Component.render;
   }
+}
+
+let currentInstance: ComponentInternalInstance | null = null;
+export function getCurrentInstance() {
+  return currentInstance;
+}
+function setCurrentInstance(instance: ComponentInternalInstance | null) {
+  currentInstance = instance;
 }

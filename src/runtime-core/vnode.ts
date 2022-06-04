@@ -1,5 +1,8 @@
 import { ShapeFlags } from "../shared/shapeFlags";
 
+export const Fragment = Symbol("Fragment");
+export const Text = Symbol("Text");
+
 export type VNode = {
   type: any;
   props: any;
@@ -36,6 +39,10 @@ export function normalizeChildren(vnode: VNode, children) {
       vnode.shapeFlag = vnode.shapeFlag | ShapeFlags.SLOTS_CHILDREN;
     }
   }
+}
+
+export function createTextVNode(text: string) {
+  return createVNode(Text, {}, text);
 }
 // 基于 type 来判断是什么类型的组件
 function getShapeFlag(type: any) {

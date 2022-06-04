@@ -4,9 +4,7 @@ import {
   createComponentInstance,
   setupComponent,
 } from "./component";
-import { VNode, VNodeArrayChildren } from "./vnode";
-
-export const Fragment = Symbol("Fragment");
+import { Fragment, Text, VNode, VNodeArrayChildren } from "./vnode";
 
 export function render(
   vnode: VNode,
@@ -28,6 +26,9 @@ export function patch(
       processFragment(vnode, container, parent);
       break;
 
+    case Text:
+      processText(vnode, container);
+      break;
     default:
       if (shapeFlag & ShapeFlags.ELEMENT) {
         processElement(vnode, container, parent);
@@ -113,4 +114,11 @@ function processFragment(
   parent: ComponentInternalInstance | null
 ) {
   mountChildren(vnode, container, parent);
+}
+function processText(vnode: VNode, container: HTMLElement) {
+  const { children } = vnode;
+  const textNode = (vnode.el = document.createTextNode(
+    children as string
+  ) as any);
+  container.append(textNode);
 }

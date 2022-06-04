@@ -1,4 +1,4 @@
-import { h, renderSlots } from "../../../lib/mini-vue.esm.js";
+import { h, renderSlots, createTextVNode } from "../../../lib/mini-vue.esm.js";
 import { createAppInstance } from "./beforeEach";
 
 const Hello = {
@@ -46,7 +46,7 @@ const App = {
       Duck,
       {},
       {
-        third: () => h("span", {}, "鸭"),
+        third: () => [h("span", {}, "鸭"), createTextVNode("嘎嘎嘎")],
         first: (props) => h("span", {}, "可" + props),
         second: () => h("span", {}, "达"),
       }
@@ -67,6 +67,6 @@ describe("slot", () => {
   test("slot", () => {
     const target = document.querySelector("#title");
     // expect(target.textContent).toBe("Hello, World~可达鸭");
-    expect(target.textContent).toBe("可^达鸭");
+    expect(target.textContent).toBe("可^达鸭嘎嘎嘎");
   });
 });

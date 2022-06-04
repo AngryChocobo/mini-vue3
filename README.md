@@ -28,3 +28,5 @@
 ## My Wrong Understanding
 
 - ReactiveEffect，我一开始理解是 stop 和 runner 是一组成对出现的 api，可以切换 active 状态。但实际上一旦 stop 以后，active 就始终是 false 了
+
+- 当手写 render 函数时，我始终疑惑 h 函数要如何“兼容”string 类型的输入。当学习到 Text 类型的节点时，了解了 vue 的做法：虽然用户写的是 string，但是会通过编译的手段来为 string 包裹一层 createTextVNode。收获就是，不要一开始就想让一个函数做过多的事情，兼容很多种情况，有很多场景或许有别的更优雅的实现方案。

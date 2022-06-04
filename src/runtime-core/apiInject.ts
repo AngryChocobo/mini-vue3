@@ -12,9 +12,21 @@ export function provide(key, value) {
     provides[key] = value;
   }
 }
-export function inject(key) {
+export function inject(key, defaultValue?) {
   const currentInstance = getCurrentInstance();
   if (currentInstance) {
-    return currentInstance.parent?.provides[key];
+    const parentProvides = currentInstance.parent?.provides;
+    if (!parentProvides) {
+      return;
+    }
+    if (key in parentProvides) {
+      return currentInstance.parent?.provides[key];
+    } else if (defaultValue !== undefined) {
+      if (typeof defaultValue === "function") {
+        return defaultValue();
+      } else {
+        return defaultValue;
+      }
+    }
   }
 }

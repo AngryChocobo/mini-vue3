@@ -35,14 +35,22 @@ const Consumer = {
     const foo = inject("foo");
     const bar = inject("bar");
     const baz = inject("baz");
+    const defaultValue = inject("default", "defaultValue");
+    const defaultValue2 = inject("default", () => "defaultValue2");
     return {
       foo,
       bar,
       baz,
+      defaultValue,
+      defaultValue2,
     };
   },
   render() {
-    return h("div", {}, `${this.foo}-${this.bar}-${this.baz}`);
+    return h(
+      "div",
+      {},
+      `${this.foo}-${this.bar}-${this.baz}-${this.defaultValue}-${this.defaultValue2}`
+    );
   },
 };
 
@@ -51,6 +59,8 @@ describe("createApp", () => {
     createAppInstance(ProviderOne);
   });
   test("createApp", () => {
-    expect(document.body.textContent).toBe("provide:foo-fooOverride-bar-baz");
+    expect(document.body.textContent).toBe(
+      "provide:foo-fooOverride-bar-baz-defaultValue-defaultValue2"
+    );
   });
 });

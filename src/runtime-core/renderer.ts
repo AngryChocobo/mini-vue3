@@ -4,12 +4,13 @@ import {
   createComponentInstance,
   setupComponent,
 } from "./component";
+import { createAppApi } from "./createApp";
 import { Fragment, Text, VNode, VNodeArrayChildren } from "./vnode";
 
-export function createRender(option) {
+export function createRenderer(option) {
   const { createElement, patchProps, insert } = option;
   return {
-    render,
+    createApp: createAppApi(render),
   };
   function render(
     vnode: VNode,

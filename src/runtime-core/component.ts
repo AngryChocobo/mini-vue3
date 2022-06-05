@@ -18,6 +18,8 @@ export type ComponentInternalInstance = {
   props?: any;
   parent: ComponentInternalInstance | null;
   provides: {};
+  isMounted: boolean;
+  subTree: any;
 };
 
 export function createComponentInstance(
@@ -32,6 +34,8 @@ export function createComponentInstance(
     slots: {},
     parent,
     provides: parent ? parent.provides : {},
+    isMounted: false,
+    subTree: null,
   };
   component.emit = emit.bind(null, component);
   return component;
@@ -79,6 +83,7 @@ let currentInstance: ComponentInternalInstance | null = null;
 export function getCurrentInstance() {
   return currentInstance;
 }
+
 function setCurrentInstance(instance: ComponentInternalInstance | null) {
   currentInstance = instance;
 }

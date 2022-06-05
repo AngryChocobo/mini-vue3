@@ -3,19 +3,12 @@ import { createAppInstance } from "./beforeEach";
 
 const App = {
   render() {
-    return h("div", { id: "title" }, [
-      createTextVNode(this.count),
-      h("button", { onClick: this.onClick }, "自增"),
-    ]);
+    return h("div", { id: "title" }, [createTextVNode(this.count)]);
   },
   setup() {
     let count = ref(1);
-    function onClick() {
-      count++;
-    }
     return {
       count,
-      onClick,
     };
   },
 };
@@ -25,8 +18,6 @@ describe("ref", () => {
     createAppInstance(App);
   });
   test("should display ref.value in render function ", () => {
-    const target = document.querySelector("#title");
-    expect(target).toBeDefined();
-    expect(target.textContent).toBe("1自增");
+    expect(document.body.textContent).toBe("1");
   });
 });

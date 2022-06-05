@@ -9,7 +9,7 @@ export const App = {
   setup() {
     let count = ref(1);
     function onClick() {
-      count++;
+      count.value++;
     }
     return {
       count,

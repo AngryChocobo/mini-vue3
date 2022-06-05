@@ -77,6 +77,14 @@ function processElement(
   container: HTMLElement,
   parent: ComponentInternalInstance | null
 ) {
+  mountElement(vnode, container, parent);
+}
+
+function mountElement(
+  vnode: VNode,
+  container: HTMLElement,
+  parent: ComponentInternalInstance | null
+) {
   const el = (vnode.el = document.createElement(vnode.type as string));
   const { children, props } = vnode;
 
@@ -98,6 +106,7 @@ function processElement(
 
   container.appendChild(el);
 }
+
 function mountChildren(
   vnode: VNode,
   container: HTMLElement,
@@ -115,6 +124,7 @@ function processFragment(
 ) {
   mountChildren(vnode, container, parent);
 }
+
 function processText(vnode: VNode, container: HTMLElement) {
   const { children } = vnode;
   const textNode = (vnode.el = document.createTextNode(

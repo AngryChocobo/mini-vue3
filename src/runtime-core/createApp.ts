@@ -1,4 +1,4 @@
-import { render } from "./renderer";
+import { render } from "../runtime-dom";
 import { createVNode } from "./vnode";
 
 export function createApp(rootComponent) {

@@ -1,13 +1,15 @@
 import { h } from "../../../lib/mini-vue.esm.js";
 import { createAppInstance } from "./beforeEach";
 
+let value = 0;
+
 const App = {
   name: "App",
   render() {
     return h("div", { id: "title", class: "title" }, [
       h(Dog, {
         onWoof() {
-          console.log("dog woof");
+          value++;
         },
       }),
     ]);
@@ -49,8 +51,8 @@ describe("emit", () => {
   });
   test("emit", () => {
     const dog = document.querySelector(".dog");
+    expect(value).toBe(0);
     dog.click();
-    expect(console.log).toBeCalledTimes(1);
-    expect(console.log).toBeCalledWith("dog woof");
+    expect(value).toBe(1);
   });
 });

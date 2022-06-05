@@ -5,6 +5,7 @@ import { initProps } from "./componentProps";
 import { readonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
 import { initSlots } from "./componentSlots";
+import { proxyRefs } from "../reactivity";
 
 export type ComponentInternalInstance = {
   vnode: VNode;
@@ -62,7 +63,7 @@ function handleSetupResult(
 ) {
   if (isObject(setupResult)) {
     // extends object
-    instance.setupState = setupResult;
+    instance.setupState = proxyRefs(setupResult);
   }
   finishComponentSetup(instance);
 }

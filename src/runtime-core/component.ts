@@ -1,4 +1,4 @@
-import { isObject } from "../utils/index";
+import { isObject } from "../utils";
 import { VNode } from "./vnode";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";

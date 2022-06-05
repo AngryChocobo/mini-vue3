@@ -1,4 +1,4 @@
-import { hasOwn } from "../utils/index";
+import { hasOwn } from "../utils";
 import { ComponentInternalInstance } from "./component";
 
 const publicPropertiesMap = {

@@ -4,6 +4,42 @@
 
 **[中文](README_zh.md)** | [English](README.md)
 
+## 特性
+
+### reactivity
+
+- [ ] effect
+- [ ] reactive
+- [ ] ref
+
+- [ ] effect
+- [ ] reactive
+- [ ] ref
+
+- [ ] effect
+- [ ] reactive
+- [ ] ref
+
+### runtime-core
+
+- [x] h
+- [x] vnode
+- [x] component
+- [x] component props
+- [x] component slots
+- [x] component emits
+- [x] provide & inject
+- [ ] update element
+- [ ] update props
+
+### runtime-dom
+
+- [x] createApp
+
+### compiler
+
+- [ ] 文本插值
+
 ## 未解之谜~
 
 ### stop

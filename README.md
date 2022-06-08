@@ -8,17 +8,13 @@
 
 ### reactivity
 
-- [ ] effect
-- [ ] reactive
-- [ ] ref
-
-- [ ] effect
-- [ ] reactive
-- [ ] ref
-
-- [ ] effect
-- [ ] reactive
-- [ ] ref
+- [x] effect
+- [x] reactive
+- [x] ref
+- [x] readonly
+- [ ] computed
+- [ ] watch
+- [ ] watchEffect
 
 ### runtime-core
 

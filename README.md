@@ -12,7 +12,7 @@
 - [x] reactive
 - [x] ref
 - [x] readonly
-- [ ] computed
+- [x] computed
 - [ ] watch
 - [ ] watchEffect
 
@@ -34,7 +34,9 @@
 
 ### compiler
 
-- [ ] Text Interpolation
+- [x] parse text interpolation
+- [ ] parse element
+- [ ] parse text
 
 ## Unsolved Mysteries
 

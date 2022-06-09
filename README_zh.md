@@ -12,7 +12,7 @@
 - [x] reactive
 - [x] ref
 - [x] readonly
-- [ ] computed
+- [x] computed
 - [ ] watch
 - [ ] watchEffect
 
@@ -34,7 +34,9 @@
 
 ### compiler
 
-- [ ] 文本插值
+- [x] parse text interpolation
+- [ ] parse element
+- [ ] parse text
 
 ## 未解之谜~
 

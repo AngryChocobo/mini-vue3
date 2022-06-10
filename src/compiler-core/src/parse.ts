@@ -1,4 +1,4 @@
-import { NodeTypes } from "./ast";
+import { NodeTypes, TagTypes } from "./ast";
 
 type ParseContext = ReturnType<typeof createParseContext>;
 const openDelimiter = "{{";
@@ -15,6 +15,10 @@ function parseChildren(context: ParseContext) {
   let node;
   if (context.source.startsWith(openDelimiter)) {
     node = parseInterpolation(context);
+  }
+  if (context.source.startsWith("<")) {
+    //
+    node = parseElement(context);
   }
   nodes.push(node);
   return nodes;
@@ -34,6 +38,30 @@ function parseInterpolation(context: ParseContext) {
       content: content,
     },
   };
+}
+
+function parseElement(context: ParseContext) {
+  const element = parseTag(context, TagTypes.START);
+  parseTag(context, TagTypes.END);
+  console.log(context.source);
+  return element;
+}
+
+function parseTag(context: ParseContext, tagType: TagTypes) {
+  const match = /<\/?([a-z]*)/i.exec(context.source);
+  if (match && match[1]) {
+    const tagName = match[1];
+    advanceBy(context, match[0].length + 1);
+    // console.log(context.source);
+    if (tagType === TagTypes.END) {
+      return;
+    }
+    return {
+      type: NodeTypes.ELEMENT,
+      tag: tagName,
+      children: [],
+    };
+  }
 }
 
 function advanceBy(context: ParseContext, length: number) {

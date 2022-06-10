@@ -13,4 +13,17 @@ describe("parse", () => {
       });
     });
   });
+
+  describe("Element", () => {
+    test("simple div", () => {
+      const ast = baseParse("<div></div>");
+      const element = ast.children[0];
+
+      expect(element).toStrictEqual({
+        type: NodeTypes.ELEMENT,
+        tag: "div",
+        children: [],
+      });
+    });
+  });
 });

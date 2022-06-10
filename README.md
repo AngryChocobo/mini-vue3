@@ -35,7 +35,7 @@
 ### compiler
 
 - [x] parse text interpolation
-- [ ] parse element
+- [x] parse element
 - [ ] parse text
 
 ## Unsolved Mysteries

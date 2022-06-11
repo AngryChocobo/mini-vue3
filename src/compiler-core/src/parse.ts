@@ -28,7 +28,8 @@ function parseInterpolation(context: ParseContext) {
   const closeIndex = context.source.indexOf(closeDelimiter);
   advanceBy(context, openDelimiter.length);
   const rowContentLength = closeIndex - closeDelimiter.length;
-  const content = context.source.slice(0, rowContentLength);
+  const rowContent = parseTextData(context, rowContentLength);
+  const content = rowContent.trim();
   advanceBy(context, closeDelimiter.length);
 
   return {
@@ -65,15 +66,17 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
 }
 
 function parseText(context: ParseContext) {
-  const content = parseTextData(context);
+  const content = parseTextData(context, context.source.length);
   return {
     type: NodeTypes.TEXT,
     content,
   };
 }
 
-function parseTextData(context: ParseContext) {
-  return context.source.slice(0, context.source.length);
+function parseTextData(context: ParseContext, length: number) {
+  const content = context.source.slice(0, length);
+  advanceBy(context, length);
+  return content;
 }
 
 function advanceBy(context: ParseContext, length: number) {

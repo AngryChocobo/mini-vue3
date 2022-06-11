@@ -6,24 +6,30 @@ const closeDelimiter = "}}";
 
 export function baseParse(content: string) {
   const context = createParseContext(content);
-  const root = createRoot(parseChildren(context));
+  const root = createRoot(parseChildren(context, ""));
   return root;
 }
 
-function parseChildren(context: ParseContext) {
+function parseChildren(context: ParseContext, parentTag: string) {
   const nodes: any[] = [];
-  let node;
-  if (context.source.startsWith(openDelimiter)) {
-    node = parseInterpolation(context);
-  } else if (context.source.startsWith("<")) {
-    node = parseElement(context);
-  } else {
-    node = parseText(context);
+  while (!isEnd(context, parentTag)) {
+    let node;
+    if (context.source.startsWith(openDelimiter)) {
+      node = parseInterpolation(context);
+    } else if (context.source.startsWith("<")) {
+      node = parseElement(context);
+    } else if (context.source !== "") {
+      node = parseText(context);
+    }
+    if (node) {
+      nodes.push(node);
+    }
   }
-  nodes.push(node);
   return nodes;
 }
-
+function isEnd(context: ParseContext, parentTag: string) {
+  return context.source === "" || context.source === `</${parentTag}>`;
+}
 function parseInterpolation(context: ParseContext) {
   const closeIndex = context.source.indexOf(closeDelimiter);
   advanceBy(context, openDelimiter.length);
@@ -43,13 +49,17 @@ function parseInterpolation(context: ParseContext) {
 
 function parseElement(context: ParseContext) {
   const element = parseTag(context, TagTypes.START);
+  if (element) {
+    element.children = parseChildren(context, element.tag);
+  }
   parseTag(context, TagTypes.END);
+
   console.log(context.source);
   return element;
 }
 
 function parseTag(context: ParseContext, tagType: TagTypes) {
-  const match = /<\/?([a-z]*)/i.exec(context.source);
+  const match = /<\/?([a-z]*)/i.exec(context.source) as RegExpExecArray;
   if (match && match[1]) {
     const tagName = match[1];
     advanceBy(context, match[0].length + 1);
@@ -60,13 +70,18 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
     return {
       type: NodeTypes.ELEMENT,
       tag: tagName,
-      children: [],
+      children: [] as any[],
     };
   }
 }
 
 function parseText(context: ParseContext) {
-  const content = parseTextData(context, context.source.length);
+  let endIndex = context.source.length;
+  let index = context.source.indexOf(openDelimiter);
+  if (index !== -1) {
+    endIndex = index;
+  }
+  const content = parseTextData(context, endIndex);
   return {
     type: NodeTypes.TEXT,
     content,

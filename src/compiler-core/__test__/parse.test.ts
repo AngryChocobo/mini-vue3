@@ -35,6 +35,28 @@ describe("parse", () => {
         children: [],
       });
     });
+    test("elemet with text and interpolation", () => {
+      const ast = baseParse("<p>Hello {{World}}");
+      const element = ast.children[0];
+
+      expect(element).toStrictEqual({
+        type: NodeTypes.ELEMENT,
+        tag: "p",
+        children: [
+          {
+            type: NodeTypes.TEXT,
+            content: "Hello ",
+          },
+          {
+            type: NodeTypes.INTERPOLATION,
+            content: {
+              type: NodeTypes.SIMPLE_EXPRESSION,
+              content: "World",
+            },
+          },
+        ],
+      });
+    });
   });
 
   describe("Text", () => {

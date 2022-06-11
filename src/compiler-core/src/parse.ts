@@ -15,10 +15,10 @@ function parseChildren(context: ParseContext) {
   let node;
   if (context.source.startsWith(openDelimiter)) {
     node = parseInterpolation(context);
-  }
-  if (context.source.startsWith("<")) {
-    //
+  } else if (context.source.startsWith("<")) {
     node = parseElement(context);
+  } else {
+    node = parseText(context);
   }
   nodes.push(node);
   return nodes;
@@ -62,6 +62,18 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
       children: [],
     };
   }
+}
+
+function parseText(context: ParseContext) {
+  const content = parseTextData(context);
+  return {
+    type: NodeTypes.TEXT,
+    content,
+  };
+}
+
+function parseTextData(context: ParseContext) {
+  return context.source.slice(0, context.source.length);
 }
 
 function advanceBy(context: ParseContext, length: number) {

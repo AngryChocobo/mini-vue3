@@ -1,7 +1,7 @@
 import { baseParse } from "../src/parse";
 import { NodeTypes } from "../src/ast";
 describe("parse", () => {
-  describe("interpolation", () => {
+  describe("Interpolation", () => {
     test("simple", () => {
       const ast = baseParse("{{message}}");
       expect(ast.children[0]).toStrictEqual({
@@ -23,6 +23,18 @@ describe("parse", () => {
         type: NodeTypes.ELEMENT,
         tag: "div",
         children: [],
+      });
+    });
+  });
+
+  describe("Text", () => {
+    test("simple text", () => {
+      const ast = baseParse("Hello World!");
+      const element = ast.children[0];
+
+      expect(element).toStrictEqual({
+        type: NodeTypes.TEXT,
+        content: "Hello World!",
       });
     });
   });

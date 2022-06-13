@@ -6,18 +6,18 @@ const closeDelimiter = "}}";
 
 export function baseParse(content: string) {
   const context = createParseContext(content);
-  const root = createRoot(parseChildren(context, ""));
+  const root = createRoot(parseChildren(context, [] as string[]));
   return root;
 }
 
-function parseChildren(context: ParseContext, parentTag: string) {
+function parseChildren(context: ParseContext, ancestor: string[]) {
   const nodes: any[] = [];
-  while (!isEnd(context, parentTag)) {
+  while (!isEnd(context, ancestor)) {
     let node;
     if (context.source.startsWith(openDelimiter)) {
       node = parseInterpolation(context);
     } else if (context.source.startsWith("<")) {
-      node = parseElement(context);
+      node = parseElement(context, ancestor);
     } else if (context.source !== "") {
       node = parseText(context);
     }
@@ -27,8 +27,17 @@ function parseChildren(context: ParseContext, parentTag: string) {
   }
   return nodes;
 }
-function isEnd(context: ParseContext, parentTag: string) {
-  return context.source === "" || context.source.startsWith(`</${parentTag}>`);
+function isEnd(context: ParseContext, ancestor: string[]) {
+  const s = context.source;
+  if (s.startsWith("</")) {
+    for (let index = 0; index < ancestor.length; index++) {
+      const tag = ancestor[index];
+      if (s.slice(2, 2 + tag.length) === tag) {
+        return true;
+      }
+    }
+  }
+  return !context.source;
 }
 function parseInterpolation(context: ParseContext) {
   const closeIndex = context.source.indexOf(closeDelimiter);
@@ -47,12 +56,18 @@ function parseInterpolation(context: ParseContext) {
   };
 }
 
-function parseElement(context: ParseContext) {
+function parseElement(context: ParseContext, ancestor: string[]) {
   const element = parseTag(context, TagTypes.START);
   if (element) {
-    element.children = parseChildren(context, element.tag);
+    ancestor.push(element.tag);
+    element.children = parseChildren(context, ancestor);
+    ancestor.pop();
+    if (context.source.slice(2, 2 + element.tag.length) === element.tag) {
+      parseTag(context, TagTypes.END);
+    } else {
+      throw new Error(`miss a close tag: ${element.tag}`);
+    }
   }
-  parseTag(context, TagTypes.END);
 
   console.log(context.source);
   return element;
@@ -63,7 +78,6 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
   if (match && match[1]) {
     const tagName = match[1];
     advanceBy(context, match[0].length + 1);
-    // console.log(context.source);
     if (tagType === TagTypes.END) {
       return;
     }

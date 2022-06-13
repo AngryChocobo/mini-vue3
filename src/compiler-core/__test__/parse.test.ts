@@ -36,7 +36,7 @@ describe("parse", () => {
       });
     });
     test("elemet with text and interpolation", () => {
-      const ast = baseParse("<p>Hello {{World}}");
+      const ast = baseParse("<p>Hello {{World}}</p>");
       const element = ast.children[0];
 
       expect(element).toStrictEqual({
@@ -84,6 +84,12 @@ describe("parse", () => {
           },
         ],
       });
+    });
+
+    test("should throw a error when miss have a close tag", () => {
+      expect(() => {
+        const ast = baseParse("<p><span></p>");
+      }).toThrow("miss a close tag: span");
     });
   });
 

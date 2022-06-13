@@ -57,6 +57,34 @@ describe("parse", () => {
         ],
       });
     });
+    test("nest elemet with text and interpolation", () => {
+      const ast = baseParse("<p><span>Hello</span>{{World}}</p>");
+      const element = ast.children[0];
+
+      expect(element).toStrictEqual({
+        type: NodeTypes.ELEMENT,
+        tag: "p",
+        children: [
+          {
+            type: NodeTypes.ELEMENT,
+            tag: "span",
+            children: [
+              {
+                type: NodeTypes.TEXT,
+                content: "Hello",
+              },
+            ],
+          },
+          {
+            type: NodeTypes.INTERPOLATION,
+            content: {
+              type: NodeTypes.SIMPLE_EXPRESSION,
+              content: "World",
+            },
+          },
+        ],
+      });
+    });
   });
 
   describe("Text", () => {

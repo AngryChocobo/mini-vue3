@@ -28,7 +28,7 @@ function parseChildren(context: ParseContext, parentTag: string) {
   return nodes;
 }
 function isEnd(context: ParseContext, parentTag: string) {
-  return context.source === "" || context.source === `</${parentTag}>`;
+  return context.source === "" || context.source.startsWith(`</${parentTag}>`);
 }
 function parseInterpolation(context: ParseContext) {
   const closeIndex = context.source.indexOf(closeDelimiter);
@@ -77,10 +77,15 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
 
 function parseText(context: ParseContext) {
   let endIndex = context.source.length;
-  let index = context.source.indexOf(openDelimiter);
-  if (index !== -1) {
-    endIndex = index;
+  let endTokens = ["<", "{{"];
+
+  for (let token of endTokens) {
+    let index = context.source.indexOf(token);
+    if (index !== -1 && index < endIndex) {
+      endIndex = index;
+    }
   }
+
   const content = parseTextData(context, endIndex);
   return {
     type: NodeTypes.TEXT,

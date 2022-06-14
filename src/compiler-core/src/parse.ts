@@ -68,8 +68,6 @@ function parseElement(context: ParseContext, ancestor: string[]) {
       throw new Error(`miss a close tag: ${element.tag}`);
     }
   }
-
-  console.log(context.source);
   return element;
 }
 

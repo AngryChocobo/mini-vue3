@@ -37,6 +37,7 @@
 - [x] parse text interpolation
 - [x] parse element
 - [x] parse text
+- [x] transform
 
 ## Unsolved Mysteries
 

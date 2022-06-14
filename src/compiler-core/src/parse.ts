@@ -10,10 +10,50 @@ export function baseParse(content: string) {
   return root;
 }
 
+function createParseContext(content: string) {
+  return {
+    source: content,
+  };
+}
+
+function createRoot<T>(children: T[]) {
+  return {
+    children,
+  };
+}
+
+export type BaseNode = {
+  type: NodeTypes;
+};
+
+interface TextNode extends BaseNode {
+  type: NodeTypes.TEXT;
+  content: string;
+}
+
+export interface ElementNode extends BaseNode {
+  type: NodeTypes.ELEMENT;
+  tag: string;
+  children: any[];
+}
+
+interface InterpolationNode extends BaseNode {
+  type: NodeTypes.INTERPOLATION;
+  content: {
+    type: NodeTypes.SIMPLE_EXPRESSION;
+    content: string;
+  };
+}
+export type ChildrenNode =
+  | ElementNode
+  | InterpolationNode
+  | TextNode
+  | undefined;
+
 function parseChildren(context: ParseContext, ancestor: string[]) {
-  const nodes: any[] = [];
+  const nodes: ChildrenNode[] = [];
   while (!isEnd(context, ancestor)) {
-    let node;
+    let node: ChildrenNode;
     if (context.source.startsWith(openDelimiter)) {
       node = parseInterpolation(context);
     } else if (context.source.startsWith("<")) {
@@ -39,7 +79,8 @@ function isEnd(context: ParseContext, ancestor: string[]) {
   }
   return !context.source;
 }
-function parseInterpolation(context: ParseContext) {
+
+function parseInterpolation(context: ParseContext): InterpolationNode {
   const closeIndex = context.source.indexOf(closeDelimiter);
   advanceBy(context, openDelimiter.length);
   const rowContentLength = closeIndex - closeDelimiter.length;
@@ -71,7 +112,10 @@ function parseElement(context: ParseContext, ancestor: string[]) {
   return element;
 }
 
-function parseTag(context: ParseContext, tagType: TagTypes) {
+function parseTag(
+  context: ParseContext,
+  tagType: TagTypes
+): ElementNode | undefined {
   const match = /<\/?([a-z]*)/i.exec(context.source) as RegExpExecArray;
   if (match && match[1]) {
     const tagName = match[1];
@@ -87,7 +131,7 @@ function parseTag(context: ParseContext, tagType: TagTypes) {
   }
 }
 
-function parseText(context: ParseContext) {
+function parseText(context: ParseContext): TextNode {
   let endIndex = context.source.length;
   let endTokens = ["<", "{{"];
 
@@ -113,16 +157,4 @@ function parseTextData(context: ParseContext, length: number) {
 
 function advanceBy(context: ParseContext, length: number) {
   context.source = context.source.slice(length);
-}
-
-function createParseContext(content: string) {
-  return {
-    source: content,
-  };
-}
-
-function createRoot(children) {
-  return {
-    children,
-  };
 }

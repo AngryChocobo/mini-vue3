@@ -10,6 +10,16 @@ export default {
       format: "es",
       file: "lib/mini-vue.esm.js",
     },
+    {
+      format: "iife",
+      name: "Vue", // must have name
+      file: "lib/mini-vue.iife.js",
+    },
+    {
+      format: "umd",
+      name: "mini-vue", // must have name
+      file: "lib/mini-vue.umd.js",
+    },
   ],
   plugins: [ts()],
 };

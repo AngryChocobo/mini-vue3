@@ -18,19 +18,19 @@ export interface Target {
   [ReactiveFlags.RAW]?: any;
 }
 
-export function reactive(raw: Target) {
+export function reactive(raw: any) {
   return createActiveObject(raw, mutableHandler);
 }
 
-export function readonly(raw: Target) {
+export function readonly(raw: any) {
   return createActiveObject(raw, readonlyHandler);
 }
 
-export function shallowReadonly(raw: Target) {
+export function shallowReadonly(raw: any) {
   return createActiveObject(raw, shallowReadonlyHandler);
 }
 
-function createActiveObject(raw: Target, handler) {
+function createActiveObject(raw: any, handler) {
   return new Proxy(raw, handler);
 }
 

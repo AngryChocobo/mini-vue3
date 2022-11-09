@@ -10,7 +10,8 @@
       "name": "Open index.html",
       "runtimeExecutable": "canary",
       "url": "http://localhost:5500/example/helloworld/",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
     }
   ]
 }

@@ -26,10 +26,10 @@ export const shallowReadonlyHandler = extend({}, readonlyHandler, {
 
 function createGetter(isReadonly = false, isShallow = false) {
   return function get(target, key) {
-    if (key === ReactiveFlags.isReactive) {
+    if (key === ReactiveFlags.IS_REACTIVE) {
       return !isReadonly;
     }
-    if (key === ReactiveFlags.isReadonly) {
+    if (key === ReactiveFlags.IS_READONLY) {
       return isReadonly;
     }
     const res = target[key];

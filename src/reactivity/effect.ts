@@ -2,7 +2,7 @@ type Dep = Set<ReactiveEffect>;
 type KeyToDepMap = Map<any, Dep>;
 const targetMap = new Map<any, KeyToDepMap>();
 
-let activeEffect;
+let activeEffect: ReactiveEffect | null = null;
 let shouldTrack = true;
 
 type ReactiveEffectOptions = {
@@ -98,6 +98,8 @@ export function track(target: any, key: string | symbol) {
 }
 
 export function trackEffects(dep: Dep) {
-  dep.add(activeEffect);
-  activeEffect.deps.push(dep);
+  if (activeEffect) {
+    dep.add(activeEffect);
+    activeEffect.deps.push(dep);
+  }
 }

@@ -1,3 +1,5 @@
+import { Target } from "./reactive";
+
 type Dep = Set<ReactiveEffect>;
 type KeyToDepMap = Map<any, Dep>;
 const targetMap = new Map<any, KeyToDepMap>();
@@ -60,7 +62,7 @@ export function stop(runner) {
   runner.effect.stop();
 }
 
-export function trigger(target: any, key: string | symbol) {
+export function trigger(target: Target, key: string | symbol) {
   let depsMap = targetMap.get(target);
   if (!depsMap) return;
   const deps = depsMap.get(key);
@@ -82,7 +84,7 @@ export function isTracking() {
   return activeEffect && shouldTrack;
 }
 
-export function track(target: any, key: string | symbol) {
+export function track(target: Target, key: string | symbol) {
   if (!isTracking()) {
     return;
   }

@@ -11,19 +11,26 @@ export const enum ReactiveFlags {
   RAW = "__v_raw",
 }
 
-export function reactive(raw) {
+export interface Target {
+  [ReactiveFlags.SKIP]?: boolean;
+  [ReactiveFlags.IS_REACTIVE]?: boolean;
+  [ReactiveFlags.IS_READONLY]?: boolean;
+  [ReactiveFlags.RAW]?: any;
+}
+
+export function reactive(raw: Target) {
   return createActiveObject(raw, mutableHandler);
 }
 
-export function readonly(raw) {
+export function readonly(raw: Target) {
   return createActiveObject(raw, readonlyHandler);
 }
 
-export function shallowReadonly(raw) {
+export function shallowReadonly(raw: Target) {
   return createActiveObject(raw, shallowReadonlyHandler);
 }
 
-function createActiveObject(raw, handler) {
+function createActiveObject(raw: Target, handler) {
   return new Proxy(raw, handler);
 }
 

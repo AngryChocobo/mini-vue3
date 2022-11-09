@@ -1,4 +1,4 @@
-const bucket = new Map();
+const targetMap = new Map();
 let activeEffect;
 let shouldTrack = true;
 
@@ -58,7 +58,7 @@ export function stop(runner) {
 }
 
 export function trigger(target: any, key: string | symbol) {
-  let depsMap = bucket.get(target);
+  let depsMap = targetMap.get(target);
   if (!depsMap) return;
   const deps = depsMap.get(key);
   if (!deps) return;
@@ -83,9 +83,9 @@ export function track(target: any, key: string | symbol) {
   if (!isTracking()) {
     return;
   }
-  let depsMap = bucket.get(target);
+  let depsMap = targetMap.get(target);
   if (!depsMap) {
-    bucket.set(target, (depsMap = new Map()));
+    targetMap.set(target, (depsMap = new Map()));
   }
   let dep = depsMap.get(key);
   if (!dep) {

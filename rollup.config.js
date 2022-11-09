@@ -1,6 +1,8 @@
 import ts from "@rollup/plugin-typescript";
-export default {
+import { defineConfig } from "rollup";
+export default defineConfig({
   input: "./src/main.ts",
+
   output: [
     {
       format: "cjs",
@@ -9,6 +11,7 @@ export default {
     {
       format: "es",
       file: "lib/mini-vue.esm.js",
+      sourcemap: true,
     },
     {
       format: "iife",
@@ -22,4 +25,4 @@ export default {
     },
   ],
   plugins: [ts()],
-};
+});

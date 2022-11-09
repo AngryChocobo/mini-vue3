@@ -1,4 +1,7 @@
-const targetMap = new Map();
+type Dep = Set<ReactiveEffect>;
+type KeyToDepMap = Map<any, Dep>;
+const targetMap = new Map<any, KeyToDepMap>();
+
 let activeEffect;
 let shouldTrack = true;
 
@@ -65,12 +68,12 @@ export function trigger(target: any, key: string | symbol) {
   triggerEffects(deps);
 }
 
-export function triggerEffects(deps: Set<ReactiveEffect>) {
-  deps.forEach((dep) => {
-    if (dep?.scheduler) {
-      dep.scheduler();
+export function triggerEffects(dep: Dep) {
+  dep.forEach((effect) => {
+    if (effect?.scheduler) {
+      effect.scheduler();
     } else {
-      dep.run();
+      effect.run();
     }
   });
 }

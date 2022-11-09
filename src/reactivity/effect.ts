@@ -12,7 +12,7 @@ type ReactiveEffectOptions = {
 
 export class ReactiveEffect {
   active = true;
-  deps = [];
+  deps: Dep[] = [];
   scheduler: Function | undefined;
   onStop: Function | undefined;
   constructor(private fn, options?: ReactiveEffectOptions) {
@@ -41,8 +41,8 @@ export class ReactiveEffect {
   }
 }
 
-function cleanup(effect) {
-  effect.deps.forEach((dep: any) => {
+function cleanup(effect: ReactiveEffect) {
+  effect.deps.forEach((dep) => {
     dep.delete(effect);
   });
 }
@@ -97,7 +97,7 @@ export function track(target: any, key: string | symbol) {
   trackEffects(dep);
 }
 
-export function trackEffects(dep: Set<any>) {
+export function trackEffects(dep: Dep) {
   dep.add(activeEffect);
   activeEffect.deps.push(dep);
 }

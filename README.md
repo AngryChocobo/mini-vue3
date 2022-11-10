@@ -12,6 +12,7 @@
 - [x] reactive
 - [x] ref
 - [x] readonly
+- [x] markRaw
 - [x] computed
 - [ ] watch
 - [ ] watchEffect

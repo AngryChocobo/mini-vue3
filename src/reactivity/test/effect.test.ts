@@ -1,5 +1,5 @@
 import { effect, stop } from "../effect";
-import { reactive } from "../reactive";
+import { reactive, markRaw } from "../reactive";
 
 describe("effect", () => {
   test("happy ", () => {
@@ -12,7 +12,6 @@ describe("effect", () => {
     });
     expect(nextAge).toBe(11);
     user.age++;
-
     expect(nextAge).toBe(12);
   });
 
@@ -27,6 +26,17 @@ describe("effect", () => {
     expect(age).toBe(12);
     expect(r).toBe("foo");
   });
+
+  it("should observe multiple properties", () => {
+    let dummy;
+    const counter = reactive({ num1: 0, num2: 0 });
+    effect(() => (dummy = counter.num1 + counter.num1 + counter.num2));
+
+    expect(dummy).toBe(0);
+    counter.num1 = counter.num2 = 7;
+    expect(dummy).toBe(21);
+  });
+
   it("scheduler", () => {
     let dummy;
     let run: any;
@@ -82,5 +92,22 @@ describe("effect", () => {
     );
     stop(runner);
     expect(onStop).toHaveBeenCalledTimes(1);
+  });
+
+  test("markRaw", () => {
+    const obj = reactive({
+      foo: markRaw({
+        prop: 0,
+      }),
+    });
+    let dummy;
+    effect(() => {
+      dummy = obj.foo.prop;
+    });
+    expect(dummy).toBe(0);
+    obj.foo.prop++;
+    expect(dummy).toBe(0);
+    obj.foo = { prop: 1 };
+    expect(dummy).toBe(1);
   });
 });

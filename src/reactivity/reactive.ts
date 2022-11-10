@@ -1,3 +1,4 @@
+import { def } from "../shared";
 import {
   mutableHandler,
   readonlyHandler,
@@ -43,4 +44,9 @@ export function isReadonly(observed) {
 }
 export function isProxy(value: unknown) {
   return isReactive(value) || isReadonly(value);
+}
+
+export function markRaw<T extends object>(raw: T) {
+  def(raw, ReactiveFlags.SKIP, true);
+  return raw;
 }

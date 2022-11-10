@@ -1,6 +1,6 @@
 import { isObject, extend } from "../utils";
 import { track, trigger } from "./effect";
-import { reactive, readonly, ReactiveFlags } from "./reactive";
+import { reactive, readonly, ReactiveFlags, Target } from "./reactive";
 
 const get = createGetter();
 const set = createSetter();
@@ -24,6 +24,9 @@ export const shallowReadonlyHandler = extend({}, readonlyHandler, {
   get: shallowReadonlyGet,
 });
 
+function isSKIP(target: Target) {
+  return target[ReactiveFlags.SKIP];
+}
 function createGetter(isReadonly = false, isShallow = false) {
   return function get(target, key) {
     if (key === ReactiveFlags.IS_REACTIVE) {
@@ -36,12 +39,18 @@ function createGetter(isReadonly = false, isShallow = false) {
     if (isShallow) {
       return res;
     }
-    if (isObject(res)) {
-      return isReadonly ? readonly(res) : reactive(res);
-    }
+    // 即使是一个markRow的对象也需要先把依赖收集着，因为后边可能就不需要markRow了，不能把依赖给丢掉
     if (!isReadonly) {
       track(target, key);
     }
+    // markRow之后就不需要再继续reative了
+    if (isObject(res)) {
+      if (isSKIP(res)) {
+        return res;
+      }
+      return isReadonly ? readonly(res) : reactive(res);
+    }
+
     return res;
   };
 }

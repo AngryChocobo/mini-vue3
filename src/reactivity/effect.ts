@@ -17,7 +17,7 @@ export class ReactiveEffect {
   deps: Dep[] = [];
   scheduler: Function | undefined;
   onStop: Function | undefined;
-  constructor(private fn, options?: ReactiveEffectOptions) {
+  constructor(public fn, options?: ReactiveEffectOptions) {
     this.scheduler = options?.scheduler;
     this.onStop = options?.onStop;
   }

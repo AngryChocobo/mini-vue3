@@ -2,11 +2,7 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
-# 当 master 分支 push 代码的时候触发 workflow
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build-deploy:
@@ -28,13 +24,13 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          cache: 'pnpm'
+          node-version: "16.x"
+          cache: "pnpm"
 
       # 安装依赖项
       - name: Install
         run: pnpm i
-      - name: WTF ? What happen here? 
+      - name: WTF ? What happen here?
         run: ls
       # 单元测试
       - name: Test

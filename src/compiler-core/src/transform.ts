@@ -10,7 +10,7 @@ export function transform(root, options: TransformOption) {
 }
 
 function traverseNode(node, context: TransformContext) {
-  console.log(node);
+  // console.log(node);
   context.nodeTransforms.forEach((transer) => transer(node));
   traverseChildren(node, context);
 }

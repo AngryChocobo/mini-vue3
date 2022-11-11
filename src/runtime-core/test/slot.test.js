@@ -4,7 +4,7 @@ import { createAppInstance } from "./beforeEach";
 const Hello = {
   name: "Hello",
   render() {
-    console.log("this.$slots:", this.$slots);
+    // console.log("this.$slots:", this.$slots);
     return h("p", {}, [renderSlots(this.$slots)]);
   },
   setup() {
@@ -15,7 +15,7 @@ const Hello = {
 const World = {
   name: "World",
   render() {
-    console.log("this.$slots:", this.$slots);
+    // console.log("this.$slots:", this.$slots);
     return h("p", {}, [renderSlots(this.$slots)]);
   },
   setup() {
@@ -26,7 +26,7 @@ const World = {
 const Duck = {
   name: "Duck",
   render() {
-    console.log("this.$slots:", this.$slots);
+    // console.log("this.$slots:", this.$slots);
     return h("p", {}, [
       renderSlots(this.$slots, "first", "^"),
       renderSlots(this.$slots, "second"),

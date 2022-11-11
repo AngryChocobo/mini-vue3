@@ -5,10 +5,8 @@ class ComputedImpl {
   private _dirty = true;
   private _effect: ReactiveEffect;
   constructor(fn) {
-    this._effect = new ReactiveEffect(fn, {
-      scheduler: () => {
-        this._dirty = true;
-      },
+    this._effect = new ReactiveEffect(fn, () => {
+      this._dirty = true;
     });
   }
   get value() {

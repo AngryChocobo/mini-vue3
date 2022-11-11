@@ -1,3 +1,4 @@
+import { extend } from "../utils";
 import { Target } from "./reactive";
 
 type Dep = Set<ReactiveEffect>;
@@ -8,19 +9,15 @@ let activeEffect: ReactiveEffect | null = null;
 let shouldTrack = true;
 
 type ReactiveEffectOptions = {
-  onStop?: Function;
-  scheduler?: Function;
+  onStop?: () => void;
+  scheduler?: EffectScheduler;
 };
-
+export type EffectScheduler = (...args: any[]) => any;
 export class ReactiveEffect {
   active = true;
   deps: Dep[] = [];
-  scheduler: Function | undefined;
-  onStop: Function | undefined;
-  constructor(public fn, options?: ReactiveEffectOptions) {
-    this.scheduler = options?.scheduler;
-    this.onStop = options?.onStop;
-  }
+  onStop?: () => void;
+  constructor(public fn, public scheduler?: EffectScheduler) {}
   run() {
     if (!this.active) {
       return this.fn();
@@ -49,9 +46,11 @@ function cleanup(effect: ReactiveEffect) {
   });
 }
 
-export function effect(fn, options?) {
-  const _effect = new ReactiveEffect(fn, options);
+export function effect(fn, options?: ReactiveEffectOptions) {
+  const _effect = new ReactiveEffect(fn, options?.scheduler);
   _effect.run();
+  // extends onStop to _effect if exist
+  extend(_effect, options);
   const runner: any = _effect.run.bind(_effect);
   // so we can find runner's effect
   runner.effect = _effect;

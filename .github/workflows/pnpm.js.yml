@@ -34,7 +34,8 @@ jobs:
       # 安装依赖项
       - name: Install
         run: pnpm i
-
+      - name: WTF ? What happen here? 
+        run: ls
       # 单元测试
       - name: Test
         run: pnpm test

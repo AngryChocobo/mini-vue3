@@ -1,5 +1,5 @@
 module.exports = {
   testEnvironment: "jsdom",
-  collectCoverage: true,
+  collectCoverage: false,
   testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
 };

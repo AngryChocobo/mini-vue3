@@ -1,4 +1,4 @@
-import { h } from "../../lib/mini-vue.esm.js";
+import { h } from "../../packages/vue/dist/mini-vue.esm.js";
 const Dog = {
   render() {
     return h("div", { id: "title", class: "red" }, [

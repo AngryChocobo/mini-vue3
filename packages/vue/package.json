@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && rollup -c rollup.config.js"
   },
   "keywords": [],
   "author": "AngryChocobo <1347237169@qq.com>",

@@ -1,28 +1,33 @@
 import ts from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
-export default defineConfig({
-  input: "./src/main.ts",
+import resolve from "rollup-plugin-node-resolve";
 
+export default defineConfig({
+  input: "./src/index.ts",
   output: [
     {
       format: "cjs",
-      file: "lib/mini-vue.cjs.js",
+      file: "dist/mini-vue.cjs.js",
     },
     {
       format: "es",
-      file: "lib/mini-vue.esm.js",
+      file: "dist/mini-vue.esm.js",
       sourcemap: true,
     },
     {
       format: "iife",
       name: "Vue", // must have name
-      file: "lib/mini-vue.iife.js",
+      file: "dist/mini-vue.iife.js",
     },
     {
       format: "umd",
       name: "mini-vue", // must have name
-      file: "lib/mini-vue.umd.js",
+      file: "dist/mini-vue.umd.js",
     },
   ],
-  plugins: [ts()],
+  plugins: [
+    ts(),
+    // to build workspace:* package dependency
+    resolve(),
+  ],
 });

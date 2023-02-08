@@ -1,4 +1,8 @@
-import { h, createTextVNode, ref } from "../../lib/mini-vue.esm.js";
+import {
+  h,
+  createTextVNode,
+  ref,
+} from "../../packages/vue/dist/mini-vue.esm.js";
 export const App = {
   render() {
     return h("div", { id: "title" }, [

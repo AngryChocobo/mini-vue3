@@ -1,12 +1,13 @@
-import { h, ref, createTextVNode } from "../../../lib/mini-vue.esm.js";
+import { ref } from "reactivity";
+import { h, createTextVNode } from "runtime-core";
 import { createAppInstance } from "./beforeEach";
 
 const App = {
   name: "App",
   render() {
     return h("div", { id: "root" }, [
-      h("div", { id: "count" }, [createTextVNode(this.count)]),
-      h("button", { onClick: this.onClick }, "自增"),
+      h("div", { id: "count" }, [createTextVNode((this as any).count)]),
+      h("button", { onClick: (this as any).onClick }, "自增"),
     ]);
   },
   setup() {
@@ -31,7 +32,7 @@ describe("update element", () => {
     createAppInstance(App);
   });
   test.only("should update", () => {
-    const text = document.querySelector("#count");
+    const text = document.querySelector("#count") as HTMLDivElement;
     expect(text.textContent).toBe("1");
   });
 

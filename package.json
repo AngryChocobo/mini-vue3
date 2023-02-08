@@ -6,8 +6,8 @@
   "scripts": {
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
-    "build": "turbo run rollup -c rollup.config.js",
-    "bb": "rollup -c rollup.config.js --watch"
+    "old-build": "rollup -c rollup.config.js",
+    "build": "turbo run build"
   },
   "repository": {
     "type": "git",

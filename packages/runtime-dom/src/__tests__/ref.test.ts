@@ -1,9 +1,10 @@
-import { h, ref, createTextVNode } from "../../../lib/mini-vue.esm.js";
+import { h, createTextVNode } from "runtime-core";
+import { ref } from "reactivity";
 import { createAppInstance } from "./beforeEach";
 
 const App = {
   render() {
-    return h("div", { id: "title" }, [createTextVNode(this.count)]);
+    return h("div", { id: "title" }, [createTextVNode((this as any).count)]);
   },
   setup() {
     let count = ref(1);

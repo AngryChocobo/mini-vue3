@@ -4,3 +4,4 @@ export * from "./component";
 export * from "./vnode";
 export * from "./createApp";
 export * from "./apiInject";
+export * from "./renderer";

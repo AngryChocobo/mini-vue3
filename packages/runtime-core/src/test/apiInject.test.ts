@@ -25,7 +25,7 @@ const ProviderTwo = {
     };
   },
   render() {
-    return h("div", {}, [h("span", {}, this.foo + "-"), h(Consumer)]);
+    return h("div", {}, [h("span", {}, (this as any).foo + "-"), h(Consumer)]);
   },
 };
 
@@ -49,7 +49,9 @@ const Consumer = {
     return h(
       "div",
       {},
-      `${this.foo}-${this.bar}-${this.baz}-${this.defaultValue}-${this.defaultValue2}`
+      `${(this as any).foo}-${(this as any).bar}-${(this as any).baz}-${
+        (this as any).defaultValue
+      }-${(this as any).defaultValue2}`
     );
   },
 };

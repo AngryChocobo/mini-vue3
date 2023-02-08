@@ -6,7 +6,7 @@ const Hello = {
   name: "Hello",
   render() {
     // console.log("this.$slots:", this.$slots);
-    return h("p", {}, [renderSlots(this.$slots)]);
+    return h("p", {}, [renderSlots((this as any).$slots)]);
   },
   setup() {
     return {};
@@ -17,7 +17,7 @@ const World = {
   name: "World",
   render() {
     // console.log("this.$slots:", this.$slots);
-    return h("p", {}, [renderSlots(this.$slots)]);
+    return h("p", {}, [renderSlots((this as any).$slots)]);
   },
   setup() {
     return {};
@@ -29,9 +29,9 @@ const Duck = {
   render() {
     // console.log("this.$slots:", this.$slots);
     return h("p", {}, [
-      renderSlots(this.$slots, "first", "^"),
-      renderSlots(this.$slots, "second"),
-      renderSlots(this.$slots, "third"),
+      renderSlots((this as any).$slots, "first", "^"),
+      renderSlots((this as any).$slots, "second"),
+      renderSlots((this as any).$slots, "third"),
     ]);
   },
   setup() {

@@ -26,7 +26,7 @@ const Dog = {
       {
         class: "dog",
       },
-      this.dogName
+      (this as any).dogName
     );
   },
   setup() {

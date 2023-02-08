@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "keywords": [],
   "author": "AngryChocobo <1347237169@qq.com>",
   "license": "ISC"

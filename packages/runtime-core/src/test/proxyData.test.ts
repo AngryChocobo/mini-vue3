@@ -7,7 +7,7 @@ const App = {
   name: "App",
   render() {
     component = this;
-    return h("div", { id: "title", class: "title" }, this.msg);
+    return h("div", { id: "title", class: "title" }, (this as any).msg);
   },
   setup() {
     return {

@@ -28,9 +28,9 @@ const Dog = {
       "button",
       {
         class: "dog",
-        onClick: this.onClick,
+        onClick: (this as any).onClick,
       },
-      this.dogName
+      (this as any).dogName
     );
   },
   setup(props, { emit }) {

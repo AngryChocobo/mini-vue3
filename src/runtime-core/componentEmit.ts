@@ -1,4 +1,4 @@
-import { toHandlerKey } from "../utils";
+import { toHandlerKey } from "../shared";
 import { ComponentInternalInstance } from "./component";
 
 export function emit(

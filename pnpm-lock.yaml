@@ -54,6 +54,14 @@ importers:
   packages/shared:
     specifiers: {}
 
+  packages/vue:
+    specifiers:
+      runtime-dom: workspace:*
+      shared: workspace:*
+    dependencies:
+      runtime-dom: link:../runtime-dom
+      shared: link:../shared
+
 packages:
 
   /@ampproject/remapping/2.2.0:

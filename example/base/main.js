@@ -1,4 +1,4 @@
-import { createApp } from "../../lib/mini-vue.esm.js";
+import { createApp } from "../../packages/vue/dist/mini-vue.esm.js";
 import { App } from "./App.js";
 const rootContainer = document.querySelector("#app");
 createApp(App).mount(rootContainer);

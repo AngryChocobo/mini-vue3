@@ -1,10 +1,12 @@
 import { h } from "../../../lib/mini-vue.esm.js";
 import { createAppInstance } from "./beforeEach";
 
+let component;
 const App = {
   name: "App",
   render() {
-    return h("div", { id: "title", class: "title" }, "mini-vue3");
+    component = this;
+    return h("div", { id: "title", class: "title" }, this.msg);
   },
   setup() {
     return {
@@ -13,15 +15,19 @@ const App = {
   },
 };
 
-describe("createApp", () => {
+describe("proxyData", () => {
   beforeEach(() => {
     createAppInstance(App);
   });
-  test("createApp", () => {
-    const target = document.querySelector("#title");
+  test("proxyData", () => {
+    const target = document.querySelector("#title") as HTMLDivElement;
     expect(target).toBeDefined();
     expect(target.getAttribute("id")).toBe("title");
     expect(target.className).toBe("title");
-    expect(target.textContent).toBe("mini-vue3");
+    expect(target.textContent).toBe("mini-vue");
+  });
+  test("$el", () => {
+    const target = document.querySelector("#title");
+    expect(component.$el).toEqual(target);
   });
 });

@@ -1,7 +1,11 @@
-import { h, getCurrentInstance } from "../../../lib/mini-vue.esm.js";
+import {
+  h,
+  getCurrentInstance,
+  ComponentInternalInstance,
+} from "../../../lib/mini-vue.esm.js";
 import { createAppInstance } from "./beforeEach";
 
-let current = null;
+let current = ComponentInternalInstance;
 const App = {
   name: "App",
   render() {

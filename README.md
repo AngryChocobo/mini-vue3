@@ -39,3 +39,7 @@
 - [x] parse element
 - [x] parse text
 - [x] transform
+
+## Questions
+
+### How to write ts that can show correct hint after vue inject ?

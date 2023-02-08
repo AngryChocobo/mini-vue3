@@ -65,7 +65,7 @@ describe("slot", () => {
     createAppInstance(App);
   });
   test("slot", () => {
-    const target = document.querySelector("#title");
+    const target = document.querySelector("#title") as HTMLDivElement;
     // expect(target.textContent).toBe("Hello, World~可达鸭");
     expect(target.textContent).toBe("可^达鸭嘎嘎嘎");
   });

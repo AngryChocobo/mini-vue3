@@ -1,12 +1,16 @@
 import { h } from "../../../lib/mini-vue.esm.js";
 import { createAppInstance } from "./beforeEach";
 
+let value = 0;
+
 const App = {
   name: "App",
   render() {
     return h("div", { id: "title", class: "title" }, [
       h(Dog, {
-        dogName: "旺财",
+        onWoof() {
+          value++;
+        },
       }),
     ]);
   },
@@ -24,21 +28,29 @@ const Dog = {
       "button",
       {
         class: "dog",
+        onClick: this.onClick,
       },
       this.dogName
     );
   },
-  setup() {
-    return {};
+  setup(props, { emit }) {
+    return {
+      dogName: "旺财",
+      onClick() {
+        emit("woof");
+      },
+    };
   },
 };
 
-describe("props", () => {
+describe("emit", () => {
   beforeEach(() => {
     createAppInstance(App);
   });
-  test("props", () => {
-    const dog = document.querySelector(".dog");
-    expect(dog.textContent).toBe("旺财");
+  test("emit", () => {
+    const dog = document.querySelector(".dog") as HTMLButtonElement;
+    expect(value).toBe(0);
+    dog.click();
+    expect(value).toBe(1);
   });
 });

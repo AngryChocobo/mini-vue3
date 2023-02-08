@@ -1,4 +1,4 @@
-import { def } from "../shared";
+import { def } from "shared";
 import {
   mutableHandler,
   readonlyHandler,

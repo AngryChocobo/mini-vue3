@@ -1,5 +1,5 @@
 import { effect } from "../reactivity";
-import { ShapeFlags } from "../shared/shapeFlags";
+import { ShapeFlags } from "shared/shapeFlags";
 import {
   ComponentInternalInstance,
   createComponentInstance,

@@ -1,0 +1,10 @@
+{
+  "name": "compiler-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "AngryChocobo <1347237169@qq.com>",
+  "license": "ISC"
+}

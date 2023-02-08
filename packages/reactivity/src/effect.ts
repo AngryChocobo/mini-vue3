@@ -1,4 +1,4 @@
-import { extend } from "../shared";
+import { extend } from "shared";
 import { Target } from "./reactive";
 
 type Dep = Set<ReactiveEffect>;

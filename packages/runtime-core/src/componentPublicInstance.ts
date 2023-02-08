@@ -1,4 +1,4 @@
-import { hasOwn } from "../shared";
+import { hasOwn } from "shared";
 import { ComponentInternalInstance } from "./component";
 
 const publicPropertiesMap = {

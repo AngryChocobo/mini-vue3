@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test-watch": "jest --watch",
-    "build": "rollup -c rollup.config.js",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "build": "turbo run rollup -c rollup.config.js",
     "bb": "rollup -c rollup.config.js --watch"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "jest-environment-jsdom": "^28.1.0",
     "rollup": "^2.75.3",
     "tslib": "^2.4.0",
+    "turbo": "^1.7.4",
     "typescript": "^4.7.2"
   }
 }

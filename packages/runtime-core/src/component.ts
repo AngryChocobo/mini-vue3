@@ -1,4 +1,4 @@
-import { isObject } from "../shared";
+import { isObject } from "shared";
 import { VNode } from "./vnode";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";

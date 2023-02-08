@@ -1,5 +1,7 @@
 import { createRenderer } from "runtime-core";
 
+export * from "runtime-core";
+
 export function createElement(type) {
   return document.createElement(type);
 }

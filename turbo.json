@@ -4,7 +4,9 @@
     "build": {
       "outputs": ["dist/**"]
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["build"]
+    },
     "test:watch": {}
   }
 }

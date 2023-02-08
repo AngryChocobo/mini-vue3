@@ -4,6 +4,8 @@
 
 [中文](README_zh.md)| **[English](README.md)**
 
+![example workflow](https://github.com/AngryChocobo/mini-vue3/actions/workflows/build.yml/badge.svg)
+
 ## Features
 
 ### reactivity

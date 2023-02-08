@@ -1,4 +1,4 @@
-import { reactive } from "../../reactivity/reactive";
+import { reactive } from "reactivity";
 import { watchEffect } from "../apiWatch";
 import { nextTick } from "../scheduler";
 

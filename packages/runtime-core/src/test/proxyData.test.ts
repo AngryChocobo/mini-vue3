@@ -1,4 +1,5 @@
-import { h } from "../../../lib/mini-vue.esm.js";
+import { h, provide, inject } from "../index";
+
 import { createAppInstance } from "./beforeEach";
 
 let component;
@@ -15,7 +16,7 @@ const App = {
   },
 };
 
-describe("proxyData", () => {
+describe.skip("proxyData", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

@@ -1,4 +1,4 @@
-import { ReactiveEffect } from "../reactivity/effect";
+import { ReactiveEffect } from "reactivity";
 
 export function watchEffect(fn: Function) {
   const _effect = new ReactiveEffect(fn);

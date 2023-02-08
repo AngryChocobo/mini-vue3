@@ -36,7 +36,12 @@ importers:
       shared: link:../shared
 
   packages/runtime-core:
-    specifiers: {}
+    specifiers:
+      reactivity: workspace:*
+      shared: workspace:*
+    dependencies:
+      reactivity: link:../reactivity
+      shared: link:../shared
 
   packages/runtime-dom:
     specifiers: {}

@@ -1,4 +1,4 @@
-import { createApp, h } from "../../../lib/mini-vue.esm.js";
+import { createApp, h } from "../index";
 
 export const createAppInstance = (App: any) => {
   const rootContainer = document.createElement("div");

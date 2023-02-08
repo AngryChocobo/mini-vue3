@@ -1,4 +1,4 @@
-import { ShapeFlags } from "shared/shapeFlags";
+import { ShapeFlags } from "shared";
 import { ComponentInternalInstance } from "./component";
 
 export function initSlots(instance: ComponentInternalInstance, children) {

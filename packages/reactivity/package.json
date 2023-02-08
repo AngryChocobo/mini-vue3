@@ -2,10 +2,12 @@
   "name": "reactivity",
   "version": "1.0.0",
   "description": "",
-  "main": "jest.config.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "AngryChocobo <1347237169@qq.com>",

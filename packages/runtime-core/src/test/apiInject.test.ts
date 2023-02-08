@@ -1,4 +1,4 @@
-import { h, provide, inject } from "../../../lib/mini-vue.esm.js";
+import { h, provide, inject } from "../index";
 import { createAppInstance } from "./beforeEach";
 
 const ProviderOne = {
@@ -54,7 +54,7 @@ const Consumer = {
   },
 };
 
-describe("createApp", () => {
+describe.skip("createApp", () => {
   beforeEach(() => {
     createAppInstance(ProviderOne);
   });

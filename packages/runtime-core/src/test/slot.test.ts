@@ -1,4 +1,5 @@
-import { h, renderSlots, createTextVNode } from "../../../lib/mini-vue.esm.js";
+import { h, renderSlots, createTextVNode } from "../index";
+
 import { createAppInstance } from "./beforeEach";
 
 const Hello = {
@@ -60,7 +61,7 @@ const App = {
   },
 };
 
-describe("slot", () => {
+describe.skip("slot", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

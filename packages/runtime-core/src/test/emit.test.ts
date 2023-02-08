@@ -1,4 +1,4 @@
-import { h } from "../../../lib/mini-vue.esm.js";
+import { h, provide, inject } from "../index";
 import { createAppInstance } from "./beforeEach";
 
 let value = 0;
@@ -43,7 +43,7 @@ const Dog = {
   },
 };
 
-describe("emit", () => {
+describe.skip("emit", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

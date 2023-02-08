@@ -2,10 +2,9 @@ import { isObject } from "shared";
 import { VNode } from "./vnode";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";
-import { readonly } from "../reactivity/reactive";
+import { readonly, proxyRefs } from "reactivity";
 import { emit } from "./componentEmit";
 import { initSlots } from "./componentSlots";
-import { proxyRefs } from "../reactivity";
 
 export type ComponentInternalInstance = {
   vnode: VNode;

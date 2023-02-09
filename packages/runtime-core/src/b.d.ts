@@ -1,3 +1,0 @@
-enum Lang {
-  zh = "zh",
-}

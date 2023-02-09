@@ -5,7 +5,7 @@ import {
   isReactive,
   isReadonly,
   isProxy,
-} from "../reactive";
+} from "../src/reactive";
 
 describe("reactive", () => {
   test("happy ", () => {

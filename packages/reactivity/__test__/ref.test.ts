@@ -1,5 +1,5 @@
-import { effect } from "../effect";
-import { ref, isRef, unRef, proxyRefs } from "../ref";
+import { effect } from "../src/effect";
+import { ref, isRef, unRef, proxyRefs } from "../src/ref";
 
 describe("ref", () => {
   test("should happy", () => {

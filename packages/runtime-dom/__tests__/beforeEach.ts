@@ -1,4 +1,4 @@
-import { createApp } from "../index";
+import { createApp } from "../src/index";
 
 export const createAppInstance = (App: any) => {
   const rootContainer = document.createElement("div");

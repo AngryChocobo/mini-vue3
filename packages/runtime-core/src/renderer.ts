@@ -12,7 +12,7 @@ export interface RendererNode {
   [key: string]: any;
 }
 
-export interface RendererElement extends RendererNode {}
+export type RendererElement = RendererNode
 
 export function createRenderer(option) {
   const { createElement, patchProps, insert } = option;

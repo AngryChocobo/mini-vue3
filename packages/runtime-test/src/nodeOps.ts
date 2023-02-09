@@ -32,7 +32,7 @@ export interface TestElement {
   eventListeners: Record<string, Function | Function[]> | null;
 }
 
-let nodeId: number = 0;
+let nodeId = 0;
 
 export function createElement(tag: string): TestElement {
   const node: TestElement = {

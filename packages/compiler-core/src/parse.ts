@@ -133,10 +133,10 @@ function parseTag(
 
 function parseText(context: ParseContext): TextNode {
   let endIndex = context.source.length;
-  let endTokens = ["<", "{{"];
+  const endTokens = ["<", "{{"];
 
-  for (let token of endTokens) {
-    let index = context.source.indexOf(token);
+  for (const token of endTokens) {
+    const index = context.source.indexOf(token);
     if (index !== -1 && index < endIndex) {
       endIndex = index;
     }

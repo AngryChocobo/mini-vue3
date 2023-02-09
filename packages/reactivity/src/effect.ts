@@ -62,7 +62,7 @@ export function stop(runner) {
 }
 
 export function trigger(target: Target, key: string | symbol) {
-  let depsMap = targetMap.get(target);
+  const depsMap = targetMap.get(target);
   if (!depsMap) return;
   const deps = depsMap.get(key);
   if (!deps) return;

@@ -8,7 +8,8 @@
     "clean:dist": "rimraf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "eslint:fix": "eslint --fix"
   },
   "keywords": [],
   "author": "AngryChocobo <1347237169@qq.com>",

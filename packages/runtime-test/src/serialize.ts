@@ -9,8 +9,8 @@ import { isOn } from "shared";
 
 export function serialize(
   node: TestNode,
-  indent: number = 0,
-  depth: number = 0
+  indent = 0,
+  depth = 0
 ): string {
   if (node.type === NodeTypes.ELEMENT) {
     return serializeElement(node, indent, depth);
@@ -21,8 +21,8 @@ export function serialize(
 
 export function serializeInner(
   node: TestElement,
-  indent: number = 0,
-  depth: number = 0
+  indent = 0,
+  depth = 0
 ) {
   const newLine = indent ? `\n` : ``;
   return node.children.length

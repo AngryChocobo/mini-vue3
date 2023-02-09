@@ -1,0 +1,3 @@
+enum Lang {
+  zh = "zh",
+}

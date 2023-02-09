@@ -1,4 +1,4 @@
-import { h, renderSlots, createTextVNode } from "../index";
+import { h, renderSlots, createTextVNode } from "../src/index";
 
 import { createAppInstance } from "./beforeEach";
 

@@ -1,6 +1,6 @@
 import { reactive } from "reactivity";
-import { watchEffect } from "../apiWatch";
-import { nextTick } from "../scheduler";
+import { watchEffect } from "../src/index";
+import { nextTick } from "../src/index";
 
 describe("api: watch", () => {
   it("effect", async () => {

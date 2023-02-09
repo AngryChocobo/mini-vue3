@@ -8,6 +8,12 @@ import {
 import { createAppApi } from "./createApp";
 import { Fragment, Text, VNode, VNodeArrayChildren } from "./vnode";
 
+export interface RendererNode {
+  [key: string]: any;
+}
+
+export interface RendererElement extends RendererNode {}
+
 export function createRenderer(option) {
   const { createElement, patchProps, insert } = option;
   return {
@@ -15,7 +21,7 @@ export function createRenderer(option) {
   };
   function render(
     vnode: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     patch(null, vnode, container, parent);
@@ -24,7 +30,7 @@ export function createRenderer(option) {
   function patch(
     n1: VNode | null,
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     const { shapeFlag, type } = n2;
@@ -50,7 +56,7 @@ export function createRenderer(option) {
   function processElement(
     n1: VNode | null,
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     if (n1) {
@@ -63,7 +69,7 @@ export function createRenderer(option) {
   function patchElement(
     n1: VNode | null,
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     console.log("patchElement");
@@ -72,7 +78,7 @@ export function createRenderer(option) {
   }
   function mountElement(
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     // create Element
@@ -96,7 +102,7 @@ export function createRenderer(option) {
 
   function mountChildren(
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     (n2.children as VNodeArrayChildren).forEach((item) => {
@@ -106,13 +112,13 @@ export function createRenderer(option) {
 
   function processFragment(
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     mountChildren(n2, container, parent);
   }
 
-  function processText(n2: VNode, container: HTMLElement) {
+  function processText(n2: VNode, container: RendererElement) {
     const { children } = n2;
     const textNode = (n2.el = document.createTextNode(
       children as string
@@ -122,7 +128,7 @@ export function createRenderer(option) {
 
   function processComponent(
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     mountComponent(n2, container, parent);
@@ -130,7 +136,7 @@ export function createRenderer(option) {
 
   function mountComponent(
     n2: VNode,
-    container: HTMLElement,
+    container: RendererElement,
     parent: ComponentInternalInstance | null
   ) {
     const instance = createComponentInstance(n2, parent);
@@ -141,7 +147,7 @@ export function createRenderer(option) {
   function setupRenderEffect(
     instance: ComponentInternalInstance,
     vnode: VNode,
-    container: HTMLElement
+    container: RendererElement
   ) {
     effect(() => {
       // TODO maybe sometime don't need this if

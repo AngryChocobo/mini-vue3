@@ -1,0 +1,3 @@
+function foo(lang: Lang) {
+  //
+}

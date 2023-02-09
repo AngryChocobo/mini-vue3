@@ -1,4 +1,4 @@
-import { h, provide, inject } from "../index";
+import { h, provide, inject } from "../src/index";
 
 import { createAppInstance } from "./beforeEach";
 

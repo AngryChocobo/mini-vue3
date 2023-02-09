@@ -1,4 +1,4 @@
-import { h, getCurrentInstance } from "../index";
+import { h, getCurrentInstance } from "../src/index";
 
 import { createAppInstance } from "./beforeEach";
 

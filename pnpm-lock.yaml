@@ -40,10 +40,13 @@ importers:
   packages/runtime-core:
     specifiers:
       reactivity: workspace:*
+      runtime-test: workspace:*
       shared: workspace:*
     dependencies:
       reactivity: link:../reactivity
       shared: link:../shared
+    devDependencies:
+      runtime-test: link:../runtime-test
 
   packages/runtime-dom:
     specifiers:
@@ -52,6 +55,12 @@ importers:
     dependencies:
       reactivity: link:../reactivity
       runtime-core: link:../runtime-core
+
+  packages/runtime-test:
+    specifiers:
+      reactivity: workspace:*
+    dependencies:
+      reactivity: link:../reactivity
 
   packages/shared:
     specifiers: {}

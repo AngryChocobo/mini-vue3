@@ -10,6 +10,7 @@ importers:
       '@types/jest': ^27.5.1
       jest: ^28.1.0
       jest-environment-jsdom: ^28.1.0
+      rimraf: ^4.1.2
       rollup: ^2.75.3
       rollup-plugin-node-resolve: ^5.2.0
       tslib: ^2.4.0
@@ -22,6 +23,7 @@ importers:
       '@types/jest': 27.5.1
       jest: 28.1.0
       jest-environment-jsdom: 28.1.0
+      rimraf: registry.npmmirror.com/rimraf/4.1.2
       rollup: 2.75.3
       rollup-plugin-node-resolve: registry.npmmirror.com/rollup-plugin-node-resolve/5.2.0_rollup@2.75.3
       tslib: 2.4.0
@@ -1377,7 +1379,7 @@ packages:
       jest-watcher: 28.1.0
       micromatch: 4.0.5
       pretty-format: 28.1.0
-      rimraf: 3.0.2
+      rimraf: registry.npmmirror.com/rimraf/3.0.2
       slash: 3.0.0
       strip-ansi: 6.0.1
     transitivePeerDependencies:
@@ -3473,13 +3475,6 @@ packages:
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
 
-  /rimraf/3.0.2:
-    resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    hasBin: true
-    dependencies:
-      glob: 7.2.3
-    dev: true
-
   /rollup/2.75.3:
     resolution: {integrity: sha512-YA29fLU6MAYSaDxIQYrGGOcbXlDmG96h0krGGYObroezcQ0KgEPM3+7MtKD/qeuUbFuAJXvKZee5dA1dpwq1PQ==}
     engines: {node: '>=10.0.0'}
@@ -3979,6 +3974,23 @@ packages:
       is-core-module: registry.npmmirror.com/is-core-module/2.9.0
       path-parse: registry.npmmirror.com/path-parse/1.0.7
       supports-preserve-symlinks-flag: registry.npmmirror.com/supports-preserve-symlinks-flag/1.0.0
+    dev: true
+
+  registry.npmmirror.com/rimraf/3.0.2:
+    resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rimraf/-/rimraf-3.0.2.tgz}
+    name: rimraf
+    version: 3.0.2
+    hasBin: true
+    dependencies:
+      glob: 7.2.3
+    dev: true
+
+  registry.npmmirror.com/rimraf/4.1.2:
+    resolution: {integrity: sha512-BlIbgFryTbw3Dz6hyoWFhKk+unCcHMSkZGrTFVAx2WmttdBSonsdtRlwiuTbDqTKr+UlXIUqJVS4QT5tUzGENQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rimraf/-/rimraf-4.1.2.tgz}
+    name: rimraf
+    version: 4.1.2
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   registry.npmmirror.com/rollup-plugin-node-resolve/5.2.0_rollup@2.75.3:

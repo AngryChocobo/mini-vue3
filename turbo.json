@@ -9,6 +9,7 @@
       "dependsOn": ["^build"]
     },
     "test:watch": {},
+
     "runtime#build": {
       "dependsOn": ["runtime-core#build"]
     }

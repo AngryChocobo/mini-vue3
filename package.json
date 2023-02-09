@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "clean:dist": "turbo run clean:dist",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "build": "turbo run build"
@@ -26,10 +27,11 @@
     "@types/jest": "^27.5.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
+    "rimraf": "^4.1.2",
     "rollup": "^2.75.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "tslib": "^2.4.0",
     "turbo": "^1.7.4",
-    "typescript": "^4.7.2",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "typescript": "^4.7.2"
   }
 }

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean:dist": "rimraf dist",
     "build": "tsc && rollup -c rollup.config.js"
   },
   "keywords": [],

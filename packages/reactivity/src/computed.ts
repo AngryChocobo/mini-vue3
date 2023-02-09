@@ -1,7 +1,7 @@
 import { ReactiveEffect } from "./effect";
 
-class ComputedImpl {
-  private _value: any = null;
+class ComputedImpl<T> {
+  private _value!: T;
   private _dirty = true;
   private _effect: ReactiveEffect;
   constructor(fn) {
@@ -18,6 +18,6 @@ class ComputedImpl {
   }
 }
 
-export function computed(fn: Function) {
+export function computed(fn) {
   return new ComputedImpl(fn);
 }

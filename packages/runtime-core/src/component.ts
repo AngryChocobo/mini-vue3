@@ -4,19 +4,22 @@ import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 import { initProps } from "./componentProps";
 import { readonly, proxyRefs } from "reactivity";
 import { emit } from "./componentEmit";
-import { initSlots } from "./componentSlots";
+import { initSlots, Slots } from "./componentSlots";
+import { ComponentOptions } from "./componentOptions";
+
+export type Data = Record<string, unknown>;
 
 export type ComponentInternalInstance = {
   vnode: VNode;
   type: VNode["type"];
-  setupState: any;
+  setupState: Data;
   emit: (eventName: string) => void;
-  slots: {};
+  slots: Slots;
   proxy?: any;
-  render?: Function;
+  render?: () => unknown;
   props?: any;
   parent: ComponentInternalInstance | null;
-  provides: {};
+  provides: Data;
   isMounted: boolean;
   subTree: any;
 };
@@ -47,7 +50,7 @@ export function setupComponent(instance: ComponentInternalInstance) {
 }
 
 function setupStatefulComponent(instance: ComponentInternalInstance) {
-  const Component = instance.type;
+  const Component = instance.type as ComponentOptions;
   instance.proxy = new Proxy({ _: instance }, PublicInstanceProxyHandlers);
   const { setup } = Component;
   if (setup) {
@@ -60,10 +63,7 @@ function setupStatefulComponent(instance: ComponentInternalInstance) {
   }
 }
 
-function handleSetupResult(
-  instance: ComponentInternalInstance,
-  setupResult: any
-) {
+function handleSetupResult(instance: ComponentInternalInstance, setupResult) {
   if (isObject(setupResult)) {
     // extends object
     instance.setupState = proxyRefs(setupResult);
@@ -72,7 +72,7 @@ function handleSetupResult(
 }
 
 function finishComponentSetup(instance: ComponentInternalInstance) {
-  const Component = instance.type;
+  const Component = instance.type as ComponentOptions;
   if (Component.render) {
     instance.render = Component.render;
   }

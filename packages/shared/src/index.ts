@@ -1,6 +1,6 @@
 export * from "./shapeFlags";
 
-export const def = (obj: object, key: string | symbol, value: any) => {
+export const def = (obj: object, key: string | symbol, value: unknown) => {
   Object.defineProperty(obj, key, {
     configurable: true,
     enumerable: false,
@@ -13,7 +13,7 @@ export function isObject(params) {
 }
 export const extend = Object.assign;
 
-export const hasChanged = (value: any, oldValue: any): boolean =>
+export const hasChanged = (value: unknown, oldValue: unknown): boolean =>
   !Object.is(value, oldValue);
 
 export const hasOwn = (val, key) => Object.hasOwnProperty.call(val, key);

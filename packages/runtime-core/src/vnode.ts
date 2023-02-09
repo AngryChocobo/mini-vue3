@@ -4,8 +4,9 @@ import { RendererElement } from "./renderer";
 export const Fragment = Symbol("Fragment");
 export const Text = Symbol("Text");
 
+export type VNodeTypes = string | typeof Text;
 export type VNode = {
-  type: any;
+  type: VNodeTypes;
   props: any;
   children: string | VNodeArrayChildren;
   el: null | RendererElement;
@@ -14,7 +15,7 @@ export type VNode = {
 
 export type VNodeArrayChildren = any[];
 
-export function createVNode(type, props?, children?) {
+export function createVNode(type: VNodeTypes, props?, children?) {
   const vnode: VNode = {
     type,
     props,
@@ -46,7 +47,7 @@ export function createTextVNode(text: string) {
   return createVNode(Text, {}, text);
 }
 // 基于 type 来判断是什么类型的组件
-function getShapeFlag(type: any) {
+function getShapeFlag(type: VNodeTypes) {
   return typeof type === "string"
     ? ShapeFlags.ELEMENT
     : ShapeFlags.STATEFUL_COMPONENT;

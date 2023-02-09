@@ -3,8 +3,8 @@ import { TestElement } from "./nodeOps";
 export function patchProps(
   el: TestElement,
   key: string,
-  prevValue: any,
-  nextValue: any
+  prevValue: unknown,
+  nextValue: unknown
 ) {
   el.props[key] = nextValue;
 }

@@ -126,7 +126,7 @@ function parseTag(
     return {
       type: NodeTypes.ELEMENT,
       tag: tagName,
-      children: [] as any[],
+      children: [],
     };
   }
 }

@@ -28,8 +28,8 @@ export interface TestElement {
   parentNode: TestElement | null;
   tag: string;
   children: TestNode[];
-  props: Record<string, any>;
-  eventListeners: Record<string, Function | Function[]> | null;
+  props: Record<string, unknown>;
+  eventListeners: Record<string, () => unknown | (() => unknown)[]> | null;
 }
 
 let nodeId = 0;

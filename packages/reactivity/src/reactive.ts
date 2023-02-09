@@ -16,22 +16,22 @@ export interface Target {
   [ReactiveFlags.SKIP]?: boolean;
   [ReactiveFlags.IS_REACTIVE]?: boolean;
   [ReactiveFlags.IS_READONLY]?: boolean;
-  [ReactiveFlags.RAW]?: any;
+  [ReactiveFlags.RAW]?: unknown;
 }
 
-export function reactive(raw: any) {
+export function reactive<T extends object>(raw: T) {
   return createActiveObject(raw, mutableHandler);
 }
 
-export function readonly(raw: any) {
+export function readonly<T extends object>(raw: T) {
   return createActiveObject(raw, readonlyHandler);
 }
 
-export function shallowReadonly(raw: any) {
+export function shallowReadonly<T extends object>(raw: T) {
   return createActiveObject(raw, shallowReadonlyHandler);
 }
 
-function createActiveObject(raw: any, handler) {
+function createActiveObject<T extends object>(raw: T, handler) {
   return new Proxy(raw, handler);
 }
 

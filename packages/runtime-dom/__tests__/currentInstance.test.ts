@@ -14,7 +14,7 @@ const App = {
   },
 };
 
-describe.skip("props", () => {
+describe("props", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

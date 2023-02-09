@@ -61,8 +61,10 @@ importers:
   packages/runtime-test:
     specifiers:
       reactivity: workspace:*
+      shared: workspace:*
     dependencies:
       reactivity: link:../reactivity
+      shared: link:../shared
 
   packages/shared:
     specifiers: {}

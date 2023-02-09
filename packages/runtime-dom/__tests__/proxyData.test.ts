@@ -1,5 +1,4 @@
-import { h, provide, inject } from "../src/index";
-
+import { h } from "runtime-core/src";
 import { createAppInstance } from "./beforeEach";
 
 let component;
@@ -16,7 +15,7 @@ const App = {
   },
 };
 
-describe.skip("proxyData", () => {
+describe("proxyData", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

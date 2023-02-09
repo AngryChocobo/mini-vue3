@@ -1,4 +1,4 @@
-export const enum ShapeFlags {
+export enum ShapeFlags {
   // 最后要渲染的 element 类型
   ELEMENT = 1,
   // 组件类型

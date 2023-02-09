@@ -1,5 +1,4 @@
-import { h, provide, inject } from "../src/index";
-
+import { h } from "runtime-core/src";
 import { createAppInstance } from "./beforeEach";
 
 const App = {
@@ -34,7 +33,7 @@ const Dog = {
   },
 };
 
-describe.skip("props", () => {
+describe("props", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

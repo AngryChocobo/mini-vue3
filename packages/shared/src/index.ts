@@ -29,3 +29,6 @@ export const capitalize = (str: string) =>
 export function toHandlerKey(str: string) {
   return "on" + camelize(capitalize(str));
 }
+
+const onRE = /^on[^a-z]/;
+export const isOn = (key: string) => onRE.test(key);

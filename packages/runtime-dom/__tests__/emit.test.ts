@@ -1,4 +1,5 @@
-import { h, provide, inject } from "../src/index";
+import { h } from "runtime-core";
+import { createApp } from "../src/index";
 import { createAppInstance } from "./beforeEach";
 
 let value = 0;
@@ -43,7 +44,7 @@ const Dog = {
   },
 };
 
-describe.skip("emit", () => {
+describe("emit", () => {
   beforeEach(() => {
     createAppInstance(App);
   });

@@ -19,30 +19,36 @@ export interface Target {
   [ReactiveFlags.RAW]?: unknown;
 }
 
-export function reactive<T extends object>(raw: T) {
-  return createActiveObject(raw, mutableHandler);
+type GetData<T extends object> = {
+  [key in keyof T]: T[key];
+};
+
+export function reactive<T extends object>(raw: T): GetData<T>;
+export function reactive(raw: object) {
+  return createReactiveObject(raw, mutableHandler);
 }
 
-export function readonly<T extends object>(raw: T) {
-  return createActiveObject(raw, readonlyHandler);
-}
-
-export function shallowReadonly<T extends object>(raw: T) {
-  return createActiveObject(raw, shallowReadonlyHandler);
-}
-
-function createActiveObject<T extends object>(
+function createReactiveObject<T extends object>(
   raw: T,
-  handler: ProxyHandler<T>
+  handler: ProxyHandler<any>
 ) {
   return new Proxy(raw, handler);
 }
 
-export function isReactive(observed: unknown) {
+export function readonly<T extends object>(raw: T): GetData<T>;
+export function readonly(raw: object) {
+  return createReactiveObject(raw, readonlyHandler);
+}
+
+export function shallowReadonly<T extends object>(raw: T): Readonly<T> {
+  return createReactiveObject(raw, shallowReadonlyHandler);
+}
+
+export function isReactive(observed: any) {
   return !!observed && !!observed[ReactiveFlags.IS_REACTIVE];
 }
 
-export function isReadonly(observed: unknown) {
+export function isReadonly(observed: any) {
   return !!observed && !!observed[ReactiveFlags.IS_READONLY];
 }
 export function isProxy(value: unknown) {

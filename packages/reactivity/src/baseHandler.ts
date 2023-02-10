@@ -7,7 +7,7 @@ type ProxyHandlerSet = ProxyHandler<object>["set"];
 
 const get = createGetter();
 const set = createSetter();
-export const mutableHandler = {
+export const mutableHandler: ProxyHandler<object> = {
   get: get,
   set: set,
 };

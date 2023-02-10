@@ -31,15 +31,18 @@ export function shallowReadonly<T extends object>(raw: T) {
   return createActiveObject(raw, shallowReadonlyHandler);
 }
 
-function createActiveObject<T extends object>(raw: T, handler) {
+function createActiveObject<T extends object>(
+  raw: T,
+  handler: ProxyHandler<T>
+) {
   return new Proxy(raw, handler);
 }
 
-export function isReactive(observed) {
+export function isReactive(observed: unknown) {
   return !!observed && !!observed[ReactiveFlags.IS_REACTIVE];
 }
 
-export function isReadonly(observed) {
+export function isReadonly(observed: unknown) {
   return !!observed && !!observed[ReactiveFlags.IS_READONLY];
 }
 export function isProxy(value: unknown) {

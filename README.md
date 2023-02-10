@@ -1,10 +1,10 @@
 # mini-vue3
 
-吼，又一个 mini-vue 项目我的老伙计
+![example workflow](https://github.com/AngryChocobo/mini-vue3/actions/workflows/build.yml/badge.svg)
+
+The best way to learn vue3 is trying to build my own one.
 
 [中文](README_zh.md)| **[English](README.md)**
-
-![example workflow](https://github.com/AngryChocobo/mini-vue3/actions/workflows/build.yml/badge.svg)
 
 ## Features
 

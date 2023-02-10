@@ -1,6 +1,6 @@
 # mini-vue3
 
-吼，又一个 mini-vue 项目我的老伙计
+学习 vue3 源码的最好方式：造一个自己的 mini-vue3
 
 **[中文](README_zh.md)** | [English](README.md)
 

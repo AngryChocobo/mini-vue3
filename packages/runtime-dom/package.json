@@ -16,6 +16,6 @@
   "dependencies": {
     "runtime-core": "workspace:*",
     "reactivity": "workspace:*",
-    "tsconfig": "workspace:*"
+    "config": "workspace:*"
   }
 }

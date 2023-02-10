@@ -13,6 +13,6 @@
   "dependencies": {
     "runtime-dom": "workspace:*",
     "shared": "workspace:*",
-    "tsconfig": "workspace:*"
+    "config": "workspace:*"
   }
 }

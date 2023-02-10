@@ -1,9 +1,3 @@
-import type { Config } from "jest";
+import Config from "config/jest.config";
 
-const config: Config = {
-  testEnvironment: "jsdom",
-  collectCoverage: false,
-  testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
-};
-
-export default config;
+export default Config;

@@ -16,6 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "shared": "workspace:*",
-    "tsconfig": "workspace:*"
+    "config": "workspace:*"
   }
 }

@@ -39,67 +39,70 @@ importers:
       typescript: 4.7.2
 
   packages/compiler-core:
+    specifiers:
+      config: workspace:*
+    dependencies:
+      config: link:../config
+
+  packages/config:
     specifiers: {}
 
   packages/reactivity:
     specifiers:
+      config: workspace:*
       shared: workspace:*
-      tsconfig: workspace:*
     dependencies:
+      config: link:../config
       shared: link:../shared
-      tsconfig: link:../tsconfig
 
   packages/runtime-core:
     specifiers:
+      config: workspace:*
       reactivity: workspace:*
       runtime-test: workspace:*
       shared: workspace:*
-      tsconfig: workspace:*
     dependencies:
+      config: link:../config
       reactivity: link:../reactivity
       shared: link:../shared
-      tsconfig: link:../tsconfig
     devDependencies:
       runtime-test: link:../runtime-test
 
   packages/runtime-dom:
     specifiers:
+      config: workspace:*
       reactivity: workspace:*
       runtime-core: workspace:*
-      tsconfig: workspace:*
     dependencies:
+      config: link:../config
       reactivity: link:../reactivity
       runtime-core: link:../runtime-core
-      tsconfig: link:../tsconfig
 
   packages/runtime-test:
     specifiers:
+      config: workspace:*
       reactivity: workspace:*
       shared: workspace:*
-      tsconfig: workspace:*
     dependencies:
+      config: link:../config
       reactivity: link:../reactivity
       shared: link:../shared
-      tsconfig: link:../tsconfig
 
   packages/shared:
     specifiers:
-      tsconfig: workspace:*
+      config: workspace:*
     dependencies:
-      tsconfig: link:../tsconfig
-
-  packages/tsconfig:
-    specifiers: {}
+      config: link:../config
 
   packages/vue:
     specifiers:
+      config: workspace:*
       runtime-dom: workspace:*
       shared: workspace:*
-      tsconfig: workspace:*
     dependencies:
+      config: link:../config
       runtime-dom: link:../runtime-dom
       shared: link:../shared
-      tsconfig: link:../tsconfig
 
 packages:
 

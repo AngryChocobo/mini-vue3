@@ -14,6 +14,6 @@
   "dependencies": {
     "reactivity": "workspace:*",
     "shared": "workspace:*",
-    "tsconfig": "workspace:*"
+    "config": "workspace:*"
   }
 }

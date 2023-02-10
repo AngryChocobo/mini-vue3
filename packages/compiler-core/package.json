@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "AngryChocobo <1347237169@qq.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "config": "workspace:*"
+  }
 }

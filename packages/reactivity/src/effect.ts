@@ -1,7 +1,7 @@
 import { extend } from "shared";
 import { Target } from "./reactive";
 
-type Dep = Set<ReactiveEffect>;
+export type Dep = Set<ReactiveEffect>;
 type KeyToDepMap = Map<any, Dep>;
 const targetMap = new Map<any, KeyToDepMap>();
 

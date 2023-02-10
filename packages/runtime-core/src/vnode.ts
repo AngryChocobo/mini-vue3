@@ -1,4 +1,5 @@
 import { ShapeFlags } from "shared";
+import { Data } from "./component";
 import { RendererElement } from "./renderer";
 
 export const Fragment = Symbol("Fragment");
@@ -7,7 +8,7 @@ export const Text = Symbol("Text");
 export type VNodeTypes = string | typeof Text | typeof Fragment;
 export type VNode = {
   type: VNodeTypes;
-  props: any;
+  props: Data;
   children: string | VNodeArrayChildren;
   el: null | RendererElement;
   shapeFlag: number;

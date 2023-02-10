@@ -1,4 +1,5 @@
 import {
+  Dep,
   isTracking,
   ReactiveEffect,
   trackEffects,
@@ -7,12 +8,12 @@ import {
 import { hasChanged, isObject } from "shared";
 import { reactive } from "./reactive";
 
-type Ref<T = any> = {
+type Ref<T> = {
   value: T;
 };
 
 type RefBase<T> = {
-  dep?: any;
+  dep?: Dep;
   value: T;
 };
 
@@ -30,7 +31,7 @@ class RefImpl<T> {
     trackRefValue(this);
     return this._value;
   }
-  set value(newValue: any) {
+  set value(newValue: T) {
     if (hasChanged(this._rawValue, newValue)) {
       this._rawValue = newValue;
       this._value = convert(newValue);
@@ -44,7 +45,7 @@ function convert(value) {
 }
 
 export function trackRefValue(ref: RefBase<any>) {
-  if (isTracking()) {
+  if (isTracking() && ref.dep) {
     trackEffects(ref.dep);
   }
 }

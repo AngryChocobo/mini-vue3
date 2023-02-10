@@ -8,7 +8,9 @@
     "test": {
       "dependsOn": ["build"]
     },
-    "test:watch": {},
+    "test:watch": {
+      "cache": false
+    },
     "clean:dist": {}
   }
 }

@@ -4,7 +4,7 @@ import { RendererElement } from "./renderer";
 export const Fragment = Symbol("Fragment");
 export const Text = Symbol("Text");
 
-export type VNodeTypes = string | typeof Text;
+export type VNodeTypes = string | typeof Text | typeof Fragment;
 export type VNode = {
   type: VNodeTypes;
   props: any;

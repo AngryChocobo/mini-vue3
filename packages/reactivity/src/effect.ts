@@ -23,6 +23,7 @@ export class ReactiveEffect {
       return this.fn();
     }
     shouldTrack = true;
+    // eslint @typescript-eslint/no-this-alias
     activeEffect = this;
     const result = this.fn();
     shouldTrack = false;

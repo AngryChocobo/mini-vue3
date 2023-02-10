@@ -1,5 +1,5 @@
 type TransformOption = {
-  nodeTransforms: Function[];
+  nodeTransforms: ((node: unknown) => void)[];
 };
 
 type TransformContext = ReturnType<typeof createTransformContext>;

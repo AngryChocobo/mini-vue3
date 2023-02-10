@@ -16,7 +16,7 @@ export type ComponentInternalInstance = {
   emit: (eventName: string) => void;
   slots: Slots;
   proxy?: any;
-  render?: () => unknown;
+  render?: () => any;
   props?: any;
   parent: ComponentInternalInstance | null;
   provides: Data;

@@ -15,6 +15,7 @@
   "author": "AngryChocobo <1347237169@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "shared": "workspace:*"
+    "shared": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

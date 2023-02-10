@@ -42,17 +42,21 @@ importers:
   packages/reactivity:
     specifiers:
       shared: workspace:*
+      tsconfig: workspace:*
     dependencies:
       shared: link:../shared
+      tsconfig: link:../tsconfig
 
   packages/runtime-core:
     specifiers:
       reactivity: workspace:*
       runtime-test: workspace:*
       shared: workspace:*
+      tsconfig: workspace:*
     dependencies:
       reactivity: link:../reactivity
       shared: link:../shared
+      tsconfig: link:../tsconfig
     devDependencies:
       runtime-test: link:../runtime-test
 
@@ -60,28 +64,40 @@ importers:
     specifiers:
       reactivity: workspace:*
       runtime-core: workspace:*
+      tsconfig: workspace:*
     dependencies:
       reactivity: link:../reactivity
       runtime-core: link:../runtime-core
+      tsconfig: link:../tsconfig
 
   packages/runtime-test:
     specifiers:
       reactivity: workspace:*
       shared: workspace:*
+      tsconfig: workspace:*
     dependencies:
       reactivity: link:../reactivity
       shared: link:../shared
+      tsconfig: link:../tsconfig
 
   packages/shared:
+    specifiers:
+      tsconfig: workspace:*
+    dependencies:
+      tsconfig: link:../tsconfig
+
+  packages/tsconfig:
     specifiers: {}
 
   packages/vue:
     specifiers:
       runtime-dom: workspace:*
       shared: workspace:*
+      tsconfig: workspace:*
     dependencies:
       runtime-dom: link:../runtime-dom
       shared: link:../shared
+      tsconfig: link:../tsconfig
 
 packages:
 
@@ -2576,7 +2592,7 @@ packages:
       parse-json: 5.2.0
       pretty-format: 28.1.0
       slash: 3.0.0
-      strip-json-comments: 3.1.1
+      strip-json-comments: registry.npmmirror.com/strip-json-comments/3.1.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2615,7 +2631,7 @@ packages:
       parse-json: 5.2.0
       pretty-format: 28.1.0
       slash: 3.0.0
-      strip-json-comments: 3.1.1
+      strip-json-comments: registry.npmmirror.com/strip-json-comments/3.1.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2865,7 +2881,7 @@ packages:
       jest-snapshot: 28.1.0
       jest-util: 28.1.0
       slash: 3.0.0
-      strip-bom: 4.0.0
+      strip-bom: registry.npmmirror.com/strip-bom/4.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3466,19 +3482,9 @@ packages:
       ansi-regex: 5.0.1
     dev: true
 
-  /strip-bom/4.0.0:
-    resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
-    engines: {node: '>=8'}
-    dev: true
-
   /strip-final-newline/2.0.0:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
-    dev: true
-
-  /strip-json-comments/3.1.1:
-    resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
-    engines: {node: '>=8'}
     dev: true
 
   /supports-color/7.2.0:
@@ -5039,6 +5045,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       ansi-regex: registry.npmmirror.com/ansi-regex/5.0.1
+    dev: true
+
+  registry.npmmirror.com/strip-bom/4.0.0:
+    resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/strip-bom/-/strip-bom-4.0.0.tgz}
+    name: strip-bom
+    version: 4.0.0
+    engines: {node: '>=8'}
     dev: true
 
   registry.npmmirror.com/strip-json-comments/3.1.1:

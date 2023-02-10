@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "runtime-dom": "workspace:*",
-    "shared": "workspace:*"
+    "shared": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

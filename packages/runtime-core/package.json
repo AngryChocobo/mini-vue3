@@ -15,9 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "reactivity": "workspace:*",
-    "shared": "workspace:*"
+    "shared": "workspace:*",
+    "tsconfig": "workspace:*"
   },
   "devDependencies": {
-    "runtime-test": "workspace:*"
+    "runtime-test": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

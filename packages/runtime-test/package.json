@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "reactivity": "workspace:*",
-    "shared": "workspace:*"
+    "shared": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

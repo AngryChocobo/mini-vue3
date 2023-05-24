@@ -1,6 +1,6 @@
-import { activeEffect } from "./effect";
+import { type Effect, activeEffect } from "./effect";
 
-const bucket = new WeakMap<object, Map<string, Set<Function>>>();
+const bucket = new WeakMap<object, Map<string, Set<Effect>>>();
 
 export function reactive<T extends object>(obj: T) {
   const proxyObj = new Proxy(obj, {
@@ -27,11 +27,20 @@ function trackEffect(obj, key) {
     depsMap.set(key, (deps = new Set()));
   }
   deps.add(activeEffect);
+  activeEffect.deps.push(deps);
 }
 
 function triggerEffect(obj, key) {
   const deps = bucket.get(obj).get(key);
-  deps.forEach((effect) => {
+  if (!deps) {
+    return;
+  }
+  /**
+   * ⚠️ The next line code will inifinite loop.We must avoid.
+   * const _deps = deps;
+   */
+  const _deps = [...deps];
+  _deps.forEach((effect) => {
     effect();
   });
 }

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { effect } from "./effect";
 import { reactive } from "./reactive";
 
@@ -12,5 +12,24 @@ describe("effect", () => {
     expect(dummy).toBe("hi");
     obj.text = "bye";
     expect(dummy).toBe("bye");
+  });
+
+  it("branch change", () => {
+    const data = { ok: true, text: "hello world" };
+    const obj = reactive(data);
+
+    let dummy;
+    const effectFn = vi.fn(function effectFn() {
+      dummy = obj.ok ? obj.text : "not";
+    });
+    effect(effectFn);
+    expect(effectFn).toBeCalledTimes(1);
+    expect(dummy).toBe("hello world");
+    obj.ok = false;
+    expect(effectFn).toBeCalledTimes(2);
+    expect(dummy).toBe("not");
+    obj.text = "should not trigger effect";
+    expect(effectFn).toBeCalledTimes(2);
+    expect(dummy).toBe("not");
   });
 });

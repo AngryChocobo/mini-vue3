@@ -1,6 +1,25 @@
-export let activeEffect;
+export let activeEffect: Effect | null = null;
 
-export function effect(fn: (...args: unknown[]) => void) {
+// export type Effect = (fn: (...args: unknown[]) => void) => void;
+export interface Effect {
+  (...args: unknown[]): void;
+  deps: Set<Effect>[];
+}
+
+export function effect(fn) {
   activeEffect = fn;
-  fn();
+  const effectFn: Effect = () => {
+    cleanup(effectFn);
+    activeEffect = effectFn;
+    fn();
+  };
+  effectFn.deps = [];
+  effectFn();
+}
+
+function cleanup(effectFn: Effect) {
+  effectFn.deps.forEach((dep) => {
+    dep.delete(effectFn);
+  });
+  effectFn.deps.length = 0;
 }

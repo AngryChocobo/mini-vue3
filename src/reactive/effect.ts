@@ -1,4 +1,5 @@
 export let activeEffect: Effect | null = null;
+const effectStack: Effect[] = [];
 
 // export type Effect = (fn: (...args: unknown[]) => void) => void;
 export interface Effect {
@@ -11,7 +12,10 @@ export function effect(fn) {
   const effectFn: Effect = () => {
     cleanup(effectFn);
     activeEffect = effectFn;
+    effectStack.push(effectFn);
     fn();
+    effectStack.pop();
+    activeEffect = effectStack[effectStack.length - 1];
   };
   effectFn.deps = [];
   effectFn();

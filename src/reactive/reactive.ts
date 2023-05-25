@@ -26,6 +26,9 @@ function trackEffect(obj, key) {
   if (!deps) {
     depsMap.set(key, (deps = new Set()));
   }
+  if (!activeEffect) {
+    return;
+  }
   deps.add(activeEffect);
   activeEffect.deps.push(deps);
 }

@@ -32,4 +32,35 @@ describe("effect", () => {
     expect(effectFn).toBeCalledTimes(2);
     expect(dummy).toBe("not");
   });
+
+  it("nested effect", () => {
+    // 原始数据
+    const data = { foo: true, bar: true };
+    // 代理对象
+    const obj = reactive(data);
+
+    // 全局变量
+    let temp1, temp2;
+
+    const effectFn2 = vi.fn(() => {
+      console.log("effectFn2 执行");
+      // 在 effectFn2 中读取 obj.bar 属性
+      temp2 = obj.bar;
+    });
+    const effectFn1 = vi.fn(() => {
+      console.log("effectFn1 执行");
+      effect(effectFn2);
+      // 在 effectFn1 中读取 obj.foo 属性
+      temp1 = obj.foo;
+    });
+
+    // effectFn1 嵌套了 effectFn2
+    effect(effectFn1);
+
+    expect(effectFn1).toBeCalledTimes(1);
+    expect(effectFn2).toBeCalledTimes(1);
+    obj.foo = false;
+    expect(effectFn1).toBeCalledTimes(2);
+    expect(effectFn2).toBeCalledTimes(2);
+  });
 });

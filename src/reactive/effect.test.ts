@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 import { effect } from "./effect";
 import { reactive } from "./reactive";
 
@@ -71,5 +71,31 @@ describe("effect", () => {
     effect(effectFn);
     // fix RangeError: Maximum call stack size exceeded
     expect(effectFn).toBeCalledTimes(1);
+  });
+
+  it("scheduler", () => {
+    vi.useFakeTimers();
+    function executeAfterTimeout(func) {
+      setTimeout(func);
+    }
+    const obj = reactive({ foo: 1 });
+    const res: number[] = [];
+
+    effect(
+      () => {
+        res.push(obj.foo);
+      },
+      {
+        scheduler(fn) {
+          executeAfterTimeout(fn);
+        },
+      }
+    );
+
+    obj.foo++;
+    res.push(3);
+    vi.runAllTimers();
+
+    expect(res).toEqual([1, 3, 2]);
   });
 });

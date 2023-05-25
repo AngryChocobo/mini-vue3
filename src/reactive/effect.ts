@@ -5,9 +5,14 @@ const effectStack: Effect[] = [];
 export interface Effect {
   (...args: unknown[]): void;
   deps: Set<Effect>[];
+  options: EffectOptions;
 }
 
-export function effect(fn) {
+type EffectOptions = {
+  scheduler?: (fn: (...args: unknown[]) => void) => void;
+};
+
+export function effect(fn, options?: EffectOptions) {
   activeEffect = fn;
   const effectFn: Effect = () => {
     cleanup(effectFn);
@@ -18,6 +23,7 @@ export function effect(fn) {
     activeEffect = effectStack[effectStack.length - 1];
   };
   effectFn.deps = [];
+  effectFn.options = options;
   effectFn();
 }
 

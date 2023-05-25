@@ -44,6 +44,9 @@ function triggerEffect(obj, key) {
    */
   const _deps = [...deps];
   _deps.forEach((effect) => {
-    effect();
+    // fix RangeError: Maximum call stack size exceeded
+    if (effect !== activeEffect) {
+      effect();
+    }
   });
 }

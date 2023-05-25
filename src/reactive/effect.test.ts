@@ -19,7 +19,7 @@ describe("effect", () => {
     const obj = reactive(data);
 
     let dummy;
-    const effectFn = vi.fn(function effectFn() {
+    const effectFn = vi.fn(() => {
       dummy = obj.ok ? obj.text : "not";
     });
     effect(effectFn);
@@ -43,14 +43,10 @@ describe("effect", () => {
     let temp1, temp2;
 
     const effectFn2 = vi.fn(() => {
-      console.log("effectFn2 执行");
-      // 在 effectFn2 中读取 obj.bar 属性
       temp2 = obj.bar;
     });
     const effectFn1 = vi.fn(() => {
-      console.log("effectFn1 执行");
       effect(effectFn2);
-      // 在 effectFn1 中读取 obj.foo 属性
       temp1 = obj.foo;
     });
 
@@ -62,5 +58,18 @@ describe("effect", () => {
     obj.foo = false;
     expect(effectFn1).toBeCalledTimes(2);
     expect(effectFn2).toBeCalledTimes(2);
+  });
+
+  it("avoid inifinite loop", () => {
+    const obj = reactive({
+      count: 0,
+    });
+
+    const effectFn = vi.fn(() => {
+      obj.count++;
+    });
+    effect(effectFn);
+    // fix RangeError: Maximum call stack size exceeded
+    expect(effectFn).toBeCalledTimes(1);
   });
 });

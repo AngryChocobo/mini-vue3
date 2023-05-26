@@ -98,4 +98,18 @@ describe("effect", () => {
 
     expect(res).toEqual([1, 3, 2]);
   });
+
+  it("lazy", () => {
+    const obj = reactive({
+      count: 0,
+    });
+
+    const effectFn = vi.fn(() => {
+      obj.count++;
+    });
+    const _effect = effect(effectFn, { lazy: true });
+    expect(effectFn).not.toBeCalled();
+    _effect();
+    expect(effectFn).toBeCalledTimes(1);
+  });
 });

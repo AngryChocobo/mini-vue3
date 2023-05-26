@@ -17,7 +17,7 @@ export function reactive<T extends object>(obj: T) {
   return proxyObj;
 }
 
-function trackEffect(obj, key) {
+export function trackEffect(obj, key) {
   let depsMap = bucket.get(obj);
   if (!depsMap) {
     bucket.set(obj, (depsMap = new Map()));
@@ -33,7 +33,7 @@ function trackEffect(obj, key) {
   activeEffect.deps.push(deps);
 }
 
-function triggerEffect(obj, key) {
+export function triggerEffect(obj, key) {
   const deps = bucket.get(obj).get(key);
   if (!deps) {
     return;
